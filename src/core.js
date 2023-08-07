@@ -65,13 +65,32 @@ export class HeartLifecycle {
 }
 
 export class HeartElement extends HTMLElement {
+  /**
+   * Set up a custom element to hook into the Heartml lifecycle and get registered
+   * 
+   * @param {string} tagName - the custom element's tag to register
+   */
+  static define(tagName) {
+    const reservedKeys = ["length", "name", "prototype"]
+
+    Reflect.ownKeys(this).forEach(key => {
+      if (!reservedKeys.includes(key.toString()) && Heartml.plugins[key]) {
+        Heartml.plugins[key].static?.(this)
+      } else if (!reservedKeys.includes(key.toString())) {
+        console.warn(`The "${key.toString()}" Heartml plugin hasn't been initialized.`)
+        console.debug(this)
+      }
+    })
+
+    customElements.define(tagName, this)
+  }
+
   constructor() {
     super()
 
     this.lifecycle = new HeartLifecycle(this).start()
   }
 
-  /** Let's connect! */
   connectedCallback() {
     this.lifecycle.mount()
   }
@@ -83,25 +102,4 @@ export class HeartElement extends HTMLElement {
   attributeChangedCallback(...args) {
     this.lifecycle.attributeChanged(...args)
   }
-}
-
-/**
- * Set up a custom element to hook into the Heartml lifecycle and get registered
- * 
- * @param {string} tagName - the custom element's tag to register
- * @param {typeof HTMLElement} klass - the custom element class
- */
-Heartml.element = (tagName, klass) => {
-  const reservedKeys = ["length", "name", "prototype"]
-
-  Reflect.ownKeys(klass).forEach(key => {
-    if (!reservedKeys.includes(key.toString()) && Heartml.plugins[key]) {
-      Heartml.plugins[key].static?.(klass)
-    } else if (!reservedKeys.includes(key.toString())) {
-      console.warn(`The "${key.toString()}" Heartml plugin hasn't been initialized.`)
-      console.debug(klass)
-    }
-  })
-
-  customElements.define(tagName, klass)
 }

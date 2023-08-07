@@ -28,7 +28,7 @@ export class TestMe extends HeartElement {
 
     this.confetti = "orange"
 
-    Heartml.element("test-me", this)
+    this.define("test-me")
   }
 
   start() {

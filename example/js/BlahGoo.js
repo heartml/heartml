@@ -1,7 +1,7 @@
 //@ts-check
 import Heartml, { css, html, HeartElement } from "../../src/heartml.js"
 
-Heartml.element("blah-goo", class extends HeartElement {
+class BlahGoo extends HeartElement {
   static template = html`
     <p host-effect="@textContent = .hello">. . .</p>
     <fieldset host-event="input#updateHello">
@@ -23,6 +23,9 @@ Heartml.element("blah-goo", class extends HeartElement {
   //     this.hello = this.hello + "x"
   //   }
   // }
+  static {
+    this.define("blah-goo")
+  }
 
   start() {
     this.hello = ""
@@ -31,4 +34,4 @@ Heartml.element("blah-goo", class extends HeartElement {
   updateHello(e) {
     this.hello = e.target.value
   }
-})
+}

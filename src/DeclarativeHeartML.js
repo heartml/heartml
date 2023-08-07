@@ -37,13 +37,12 @@ class DeclarativeHeartML extends HTMLElement {
 
             Object.keys(mixin).forEach(item => {
               const descriptor = Object.getOwnPropertyDescriptor(mixin, item)
-              console.info(descriptor)
               Object.defineProperty(this, item, descriptor)
             })
           }
         }
 
-        Heartml.element(tagName, newCE)
+        newCE.define(tagName)
       }
     })
   }
