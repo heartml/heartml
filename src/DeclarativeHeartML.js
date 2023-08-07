@@ -9,7 +9,7 @@ class DeclarativeHeartML extends HTMLElement {
     // from: https://stackoverflow.com/a/46116986/551775
     return str
       .split('-')
-      .reduce((a, b) => a + b.charAt(0).toUpperCase() + b.slice(1));
+      .reduce((a, b) => a + b.charAt(0).toUpperCase() + b.slice(1))
   }
 
   connectedCallback() {

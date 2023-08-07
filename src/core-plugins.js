@@ -60,24 +60,35 @@ export const declarativeEvents = {
    * @param {HTMLElement} element 
    */
   instance(element) {
+    // @ts-ignore
     if (!element.handleEvent) {
+      // @ts-ignore
       element.handleEvent = 
       /**
        * @param {Event} event
        */
       function(event) {
-        let eventSyntax = event.target.getAttribute("host-event")
+        const node = /** @type {Element} */ (event.target)
+        let eventSyntax = node.getAttribute("host-event")
         if (!eventSyntax) {
-          const eventParent = event.target.closest("[host-event]") || element
+          const eventParent = node.closest("[host-event]") || element
           if (element.contains(eventParent) || element.shadowRoot?.contains(eventParent)) {
             eventSyntax = eventParent.getAttribute("host-event")
           }
         }
         if (eventSyntax) {
           const [eventType, methodName] = eventSyntax.split("#")
-          if (event.type = eventType && element[methodName.trim()]) {
+          if (event.type == eventType && element[methodName.trim()]) {
             element[methodName.trim()](event)
           }
+        } else {
+          // TODO: DRY it up?
+          const eventTypeCleaned = event.type
+            .replace(":", "-")
+            .split('-')
+            .reduce((a, b) => a + b.charAt(0).toUpperCase() + b.slice(1))
+
+          if (element[`handle${eventTypeCleaned}`]) event[`handle${eventTypeCleaned}`](event)
         }
       }.bind(element)
     }
