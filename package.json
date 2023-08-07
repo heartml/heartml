@@ -2,11 +2,19 @@
   "name": "heartml",
   "version": "0.1.0",
   "description": "Postmodern HTML. Groovy components playing a hot new tune.",
+  "private": false,
+  "author": "Jared White",
+  "license": "MIT",
   "main": "dist/heartml.cdn.js",
   "exports": {
     ".": "./dist/heartml.js",
-    "./DeclarativeHeartML.js": "./dist/DeclarativeHeartML.js"
+    "./DeclarativeHeartML.js": "./dist/DeclarativeHeartML.js",
+    "./src/*": "./src/*"
   },
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "dev": "esbuild example/js/example.js --bundle --watch --servedir=example --outdir=example/js --serve=4000",
     "build": "npm run build:esm && npm run build:cdn",
@@ -14,8 +22,7 @@
     "build:cdn": "esbuild src/heartml.cdn.js --bundle --outdir=dist --minify",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Jared White",
-  "license": "MIT",
+  "repository": "https://github.com/whitefusionhq/crystallized",
   "dependencies": {
     "@preact/signals-core": "^1.4.0"
   },
