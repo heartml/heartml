@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Heartml Scratch</title>
+  <script src="/js/example.js" defer></script>
+  <script>new EventSource('/esbuild').addEventListener('change', () => location.reload())</script>
+</head>
+<body>
+  <h1>Hello World!</h1>
+  <test-me foo="SSR Output">
+    <template shadowrootmode="open">
+      <slot></slot>
+
+      <p>Shadow DOM! <output host-effect="@textContent=.foo">...</output></p>
+    </template>
+    <output class="texty">SSR Output</output>
+
+    <p host-lazy-effect="@textContent = .baR" host-effect="
+      $styleMap (
+        .mirroredStyles
+      )
+    ">?</p>
+
+    <blah-goo hello="Howdy world!"></blah-goo>
+
+    <p>Length: <ui-label host-effect="@textContent = .baz">0</ui-label></p>
+  </test-me>
+
+
+  <im-declarative label="Wow!">
+    <template shadowrootmode="open">
+      <p>DECLARATIVE Shadow DOM! <span host-effect="@textContent = .capsLabel">. . .</span></p>
+      <slot></slot>
+      <p>:)</p>
+
+      <style>
+        :host {
+          display: block;
+          background: lightcoral;
+          padding: 1rem;
+        }
+      </style>
+    </template>
+    <p>Way cool. <span host-effect="@textContent = .label">. . .</span></p>
+  </im-declarative>
+
+  <heart-ml
+    tag="im-declarative"
+    properties='{ "label": {}, "capsLabel": { "computed": true }, "num": {} }'
+    declarative-effects='{ "light": true, "shadow": true }'
+  >
+    <template data-html>
+      <p>Shadow DOM baby! <span host-effect="@textContent = .capsLabel">. . .</span></p>
+      <slot></slot>
+      <p>:)</p>
+    </template>
+    <template data-css>
+      <style>
+        :host {
+          display: block;
+          background: lightskyblue;
+          padding: 1rem;
+        }
+      </style>
+    </template>
+    <script type="module">
+      document.querySelector('heart-ml[tag="im-declarative"]').start ??= function() {
+        return {
+          num: 3,
+          get capsLabelComputed() {
+            this.hello()
+            return this.label.toUpperCase()
+          },
+
+          hello() {
+            console.warn("Hello world!" + this.num)
+          }
+        }
+      }
+    </script>
+  </heart-ml>
+
+  <script type="module">
+    const anotherEl = document.createElement("im-declarative")
+    anotherEl.label = "Incredible!"
+    anotherEl.innerHTML = `
+      <p>Super dope. <span host-effect="@textContent = .label">. . .</span></p>
+    `
+    document.body.append(anotherEl)
+  </script>
+
+  <script>
+    ;(function attachShadowRoots(root) {
+      root.querySelectorAll("template[shadowrootmode]").forEach(template => {
+        console.log("found one!")
+        const mode = template.getAttribute("shadowrootmode");
+        const shadowRoot = template.parentNode.attachShadow({ mode });
+        shadowRoot.appendChild(template.content);
+        template.remove();
+        attachShadowRoots(shadowRoot);
+      });
+    })(document);
+  </script>
+</body>
+</html>

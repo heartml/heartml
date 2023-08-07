@@ -1,0 +1,79 @@
+//@ts-check
+import Heartml, { HeartElement } from "../../src/heartml.js"
+import "./pluginsetup.js"
+import "./BlahGoo.js"
+import "../../src/DeclarativeHeartML.js"
+
+/**
+ * Woweee!
+ */
+export class TestMe extends HeartElement {
+  static {
+    this.properties = {
+      foo: {},
+      baR: {attribute: "ba-r"},
+      baz: {computed: true}
+    }
+
+    this.declarativeEffects = { light: true, shadow: true }
+
+    this.queries = {
+      light: {
+        output: "output.texty"
+      },
+      shadow: {
+        shadowOutput: "output"
+      }
+    }
+
+    this.confetti = "orange"
+
+    Heartml.element("test-me", this)
+  }
+
+  start() {
+    /** @type {string} - Totally rad, man! */
+    this.foo = "I'm a string"
+
+    /** @type {string} */
+    this.baR = "lightyellow"
+
+    /** @type {number} */
+    this.baz
+
+    /** @type {HTMLOutputElement} */
+    this.output
+
+    /** @type {HTMLOutputElement} */
+    this.shadowOutput
+  }
+
+  connectedCallback() {
+    this.lifecycle.mount(subscribe => {
+      subscribe("foo", () => {
+        this.output.textContent = this.foo
+      })
+
+      this.resumed = true
+
+      subscribe("foo", "baR", () => {
+        this.style.backgroundColor = this.baR
+      })
+    })
+    this.shadowOutput.style.backgroundColor = "lightgreen"
+  }
+
+  get mirroredStyles() {
+    return {
+      backgroundColor: this.baR
+    }
+  }
+
+  get bazComputed() {
+    return this.baR.length
+  }
+}
+
+// setTimeout(() => {
+//   document.body.innerHTML = "done!"
+// }, 1000)

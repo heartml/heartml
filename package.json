@@ -1,0 +1,25 @@
+{
+  "name": "heartml",
+  "version": "0.1.0",
+  "description": "Postmodern HTML. Groovy components playing a hot new tune.",
+  "main": "dist/heartml.cdn.js",
+  "exports": {
+    ".": "./dist/heartml.js",
+    "./DeclarativeHeartML.js": "./dist/DeclarativeHeartML.js"
+  },
+  "scripts": {
+    "dev": "esbuild example/js/example.js --bundle --watch --servedir=example --outdir=example/js --serve=4000",
+    "build": "npm run build:esm && npm run build:cdn",
+    "build:esm": "esbuild src/heartml.js src/DeclarativeHeartML.js --bundle --splitting --external:@preact/signals-core --outdir=dist --format=esm",
+    "build:cdn": "esbuild src/heartml.cdn.js --bundle --outdir=dist --minify",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jared White",
+  "license": "MIT",
+  "dependencies": {
+    "@preact/signals-core": "^1.4.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.18.17"
+  }
+}
