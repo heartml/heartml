@@ -88,7 +88,7 @@ export const declarativeEvents = {
             .split('-')
             .reduce((a, b) => a + b.charAt(0).toUpperCase() + b.slice(1))
 
-          if (element[`handle${eventTypeCleaned}`]) event[`handle${eventTypeCleaned}`](event)
+          if (element[`handle${eventTypeCleaned}`]) element[`handle${eventTypeCleaned}`](event)
         }
       }.bind(element)
     }

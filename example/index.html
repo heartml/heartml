@@ -43,12 +43,14 @@
       </style>
     </template>
     <p>Way cool. <span host-effect="@textContent = .label">. . .</span></p>
+    <button type="button" host-event="click#taDa">Ta Da!</button>
   </im-declarative>
 
   <heart-ml
     tag="im-declarative"
     properties='{ "label": {}, "capsLabel": { "computed": true }, "num": {} }'
     declarative-effects='{ "light": true, "shadow": true }'
+    declarative-events='["click"]'
   >
     <template data-html>
       <p>Shadow DOM baby! <span host-effect="@textContent = .capsLabel">. . .</span></p>
@@ -75,6 +77,10 @@
 
           hello() {
             console.warn("Hello world!" + this.num)
+          },
+
+          taDa() {
+            alert("🎉")
           }
         }
       }
