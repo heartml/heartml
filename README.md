@@ -1,5 +1,5 @@
-# Heartml
+# Heartml ❤️
 
-## Postmodern HTML. Groovy components playing a hot new tune.
+## Postmodern HTML with the hots for some groovy components. 😻
 
 **Under construction.** Check back soon!
