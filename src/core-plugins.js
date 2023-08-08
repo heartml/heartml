@@ -76,19 +76,19 @@ export const declarativeEvents = {
             eventSyntax = eventParent.getAttribute("host-event")
           }
         }
-        if (eventSyntax) {
-          const [eventType, methodName] = eventSyntax.split("#")
-          if (event.type == eventType && element[methodName.trim()]) {
-            element[methodName.trim()](event)
-          }
+
+        const [eventType, methodName] = (eventSyntax || "").split("#")
+
+        if (event.type === eventType && element[methodName.trim()]) {
+          element[methodName.trim()](event)
         } else {
-          // TODO: DRY it up?
-          const eventTypeCleaned = event.type
+          const eventTypeCleaned = `-${event.type}`
             .replace(":", "-")
-            .split('-')
+            .split("-")
             .reduce((a, b) => a + b.charAt(0).toUpperCase() + b.slice(1))
 
-          if (element[`handle${eventTypeCleaned}`]) element[`handle${eventTypeCleaned}`](event)
+          if (element[`handle${eventTypeCleaned}`])
+            element[`handle${eventTypeCleaned}`](event)
         }
       }.bind(element)
     }

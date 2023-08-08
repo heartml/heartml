@@ -25,7 +25,7 @@ class DeclarativeHeartML extends HTMLElement {
         if (styles) newCE.styles = styles.content.querySelector("style")
         for (const attribute of this.attributes) {
           const pluginName = this.camelCase(attribute.name)
-          if (Heartml.plugins[pluginName]) {
+          if (pluginName in Heartml.plugins) {
             newCE[pluginName] = JSON.parse(attribute.value)
           }
         }

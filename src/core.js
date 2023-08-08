@@ -18,7 +18,7 @@ export class HeartLifecycle {
     this.element.start?.()
 
     Reflect.ownKeys(this.element.constructor).forEach(key => {
-      if (Heartml.plugins[key]) Heartml.plugins[key].instance?.(this.element)
+      if (key in Heartml.plugins) Heartml.plugins[key].instance?.(this.element)
     })
 
     return this
@@ -29,7 +29,7 @@ export class HeartLifecycle {
    */
   mount(fn = null) {
     Reflect.ownKeys(this.element.constructor).forEach(key => {
-      if (Heartml.plugins[key]) Heartml.plugins[key].connected?.(this.element)
+      if (key in Heartml.plugins) Heartml.plugins[key].connected?.(this.element)
     })
 
     if (fn) {
@@ -39,7 +39,7 @@ export class HeartLifecycle {
             if (typeof arg === "string") this[arg]
           })
           // @ts-ignore
-          if (this.element.resumed) args[args.length - 1]()
+          if ("resumed" in this.element) args[args.length - 1]()
         })
       })
     }
@@ -47,19 +47,19 @@ export class HeartLifecycle {
     this.element.resumed = true
 
     Reflect.ownKeys(this.element.constructor).forEach(key => {
-      if (Heartml.plugins[key]) Heartml.plugins[key].resumed?.(this.element)
+      if (key in Heartml.plugins) Heartml.plugins[key].resumed?.(this.element)
     })
   }
 
   cleanup() {
     Reflect.ownKeys(this.element.constructor).forEach(key => {
-      if (Heartml.plugins[key]) Heartml.plugins[key].cleanup?.(this.element)
+      if (key in Heartml.plugins) Heartml.plugins[key].cleanup?.(this.element)
     })
   }
 
   attributeChanged(...args) {
     Reflect.ownKeys(this.element.constructor).forEach(key => {
-      if (Heartml.plugins[key]) Heartml.plugins[key].attributeChanged?.(this.element, ...args)
+      if (key in Heartml.plugins) Heartml.plugins[key].attributeChanged?.(this.element, ...args)
     })
   }
 }

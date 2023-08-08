@@ -6,13 +6,13 @@ import { effect } from "@preact/signals-core"
  */
 
 /**
- * @typedef { Record<string, (host: HTMLElement, element: HTMLElement, value: unknown) => void> | undefined } Directives
+ * @typedef { Record<string, (host: HostEffects, element: HTMLElement, value: unknown) => void> | undefined } Directives
  */
 
 class HostEffects {
   /**
    *
-   * @param {HTMLElement} host element
+   * @param {HTMLElement} element
    * @param {Directives} directives
    */
   constructor(element, directives) {
@@ -47,7 +47,7 @@ class HostEffects {
    * `host-effect="@textContent = .count; $directive(.count)"`
    * 
    * @param {string}
-   * @param {Array<Node>} effectNodes
+   * @param {NodeListOf<Element>} effectNodes
    */
   processNodes(attr, effectNodes, elementsBoundary = false) {
     effectNodes.forEach(node => {
@@ -57,10 +57,10 @@ class HostEffects {
       if (elementsBoundary) {
         let nodeWalking = node
         while (!firstMatch && nodeWalking) {
-            if (nodeWalking.constructor.declarativeEffects) {
+            if ("declarativeEffects" in nodeWalking.constructor) {
               firstMatch = nodeWalking
             } else {
-              nodeWalking = nodeWalking.parentNode
+              nodeWalking = /** @type {Element} */ (nodeWalking.parentNode)
             }
         }
       } else {
@@ -79,7 +79,7 @@ class HostEffects {
             this.effectDisposals.push(effect(() => {
               const value = this.element[expression[1].substring(1)]
 
-              if (this.element.resumed) node[expression[0]] = value
+              if ("resumed" in this.element) node[expression[0]] = value
             }))
           } else if (statement.startsWith("$")) {
             // directive
@@ -101,7 +101,7 @@ class HostEffects {
                   return this.element[argStr.substring(1)]
                 })
 
-                if (this.element.resumed) this.directives[directiveName.trim().substring(1)]?.(this, ...args)
+                if ("resumed" in this.element) this.directives[directiveName.trim().substring(1)]?.(this, ...args)
               }))
             }
           } else {
@@ -123,7 +123,7 @@ class HostEffects {
                 return this.element[argStr.substring(1)]
               })
 
-              if (this.element.resumed) this.element[methodName.trim()]?.(...args)
+              if ("resumed" in this.element) this.element[methodName.trim()]?.(...args)
             }))
           }
         })
