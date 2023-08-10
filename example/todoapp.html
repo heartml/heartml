@@ -12,7 +12,7 @@
     }
 
     h1 {
-      font-weight: 1000;
+      font-weight: 900;
     }
   </style>
   <script src="/js/todoapp.js" defer></script>
@@ -27,12 +27,23 @@
     function createElement(tagName, options = {}) {
       return Object.assign(document.createElement(tagName), options)
     }
+
+    /**
+     * Shorthand to let you query for an element using a selector, optionally scoping
+     * 
+     * @param {string} selector
+     * @param {Document | Element | ShadowRoot} scope
+     * @return {Element | null}
+     */
+     function query(selector, scope = document) {
+      return scope.querySelector(selector)
+    }
   </script>
   <script>new EventSource('/esbuild').addEventListener('change', () => location.reload())</script>
 </head>
 <body>
 
-<h1>Simple Todos</h1>
+<h1>Simplest Todos</h1>
 
 <!--
 # Application
@@ -156,7 +167,7 @@ logic.
   }'
 >
   <script type="module">
-    document.querySelector('heart-ml[tag="todo-list"]').extend = base =>
+    query('heart-ml[tag="todo-list"]').extend = base =>
     class TodoList extends base {
       start() {
         this.todosState = []
@@ -227,7 +238,7 @@ logic.
   </template>
 
   <script type="module">
-    document.querySelector('heart-ml[tag="todo-item"]').extend = base =>
+    query('heart-ml[tag="todo-item"]').extend = base =>
     class TodoItem extends base {
       start() {
         this.itemid = 0
