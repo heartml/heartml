@@ -16,29 +16,17 @@ class DeclarativeHeartML extends HTMLElement {
     setTimeout(() => {
       const tagName = this.getAttribute("tag")
       if (!customElements.get(tagName)) {
+        const newCE = this.extend ? this.extend(HeartElement) : class extends HeartElement {}
+
         const template = this.querySelector("template[data-html]")
-        const styles = this.querySelector("template[data-css]")
-
-        const newCE = class extends HeartElement {}
-
+        const stylesTemplate = this.querySelector("template[data-css]")
         if (template) newCE.template = template.content
-        if (styles) newCE.styles = styles.content.querySelector("style")
+        if (stylesTemplate) newCE.styles = stylesTemplate.content.querySelector("style")
+
         for (const attribute of this.attributes) {
           const pluginName = this.camelCase(attribute.name)
           if (pluginName in Heartml.plugins) {
             newCE[pluginName] = JSON.parse(attribute.value)
-          }
-        }
-
-        const startCallback = this.start
-        newCE.prototype.start = function() {
-          if (startCallback) {
-            const mixin = startCallback.bind(this)()
-
-            Object.keys(mixin).forEach(item => {
-              const descriptor = Object.getOwnPropertyDescriptor(mixin, item)
-              Object.defineProperty(this, item, descriptor)
-            })
           }
         }
 

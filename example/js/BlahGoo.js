@@ -6,6 +6,8 @@ class BlahGoo extends HeartElement {
     <p host-effect="@textContent = .hello">. . .</p>
     <fieldset host-event="input#updateHello">
       <input type="text" host-effect="@value = .hello" />
+
+      <input type="text" host-effect="@value = .hello" />
     </fieldset>
   `
   static styles = css`
@@ -32,6 +34,7 @@ class BlahGoo extends HeartElement {
   }
 
   updateHello(e) {
+    console.info("UPODATING!")
     this.hello = e.target.value
   }
 }

@@ -1,7 +1,7 @@
 //@ts-check
 import ReactiveProperty from "./ReactiveProperty.js"
 import HostEffects from "./HostEffects.js"
-import { show, classMap, styleMap } from "./directives.js"
+import { show, hide, classMap, styleMap } from "./directives.js"
 import { signal, computed } from "@preact/signals-core"
 
 export const css = (strAry, ...values) => {
@@ -24,11 +24,9 @@ export const declarativeEffects = {
   connected(element) {
     element.hostEffects = new HostEffects(element, {
       show,
+      hide,
       classMap,
-      styleMap,
-      uniqId: (_, el) => {
-        el.id = "uniq123"
-      }
+      styleMap
     })
 
     if (element.constructor.declarativeEffects.shadow) {
@@ -94,14 +92,14 @@ export const declarativeEvents = {
     }
   },
   connected(element) {
+    const eventRoot = element.shadowRoot || element
     for (const eventName of element.constructor.declarativeEvents) {
-      const eventRoot = element.shadowRoot || element
       eventRoot.addEventListener(eventName, element)
     }
   },
   cleanup(element) {
+    const eventRoot = element.shadowRoot || element
     for (const eventName of element.constructor.declarativeEvents) {
-      const eventRoot = element.shadowRoot || element
       eventRoot.removeEventListener(eventName, element)
     }
   }
@@ -117,7 +115,7 @@ export const properties = {
     }
   },
   instance(element) {
-    element.reactiveProperties = {}
+    element.reactiveAttributes = {}
 
     for (const [key, value] of Object.entries(element.constructor.properties || {})) {
       if (value.computed) {
@@ -132,15 +130,13 @@ export const properties = {
         element[`${key}Signal`] = computedSignal
       } else {
         const signalObject = signal(element[key])
-        element.reactiveProperties[value.attribute || key] = new ReactiveProperty(element, signalObject, { name: key, attribute: value.attribute })
+        element.reactiveAttributes[value.attribute || key] = new ReactiveProperty(element, signalObject, { name: key, attribute: value.attribute })
         element[`${key}Signal`] = signalObject
       }
     }
   },
-  attributeChanged(element, ...args) {
-    [attr, oldValue, newValue] = args
-
-    element.reactiveProperties?.[attr]?.refreshFromAttribute(newValue)
+  attributeChanged(element, name, _, newValue) {
+    element.reactiveAttributes?.[name]?.refreshFromAttribute(newValue)
   }
 }
 

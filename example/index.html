@@ -2,6 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Heartml Scratch</title>
   <script src="/js/example.js" defer></script>
   <script>new EventSource('/esbuild').addEventListener('change', () => location.reload())</script>
@@ -23,6 +24,7 @@
     ">?</p>
 
     <blah-goo hello="Howdy world!"></blah-goo>
+    <p>Parent bound! <span host-effect="@textContent = .childHello"></span> <input type="checkbox" host-effect="@checked = .childHelloMaxLength" /></p>
 
     <p>Length: <ui-label host-effect="@textContent = .baz">0</ui-label></p>
   </test-me>
@@ -67,21 +69,23 @@
       </style>
     </template>
     <script type="module">
-      document.querySelector('heart-ml[tag="im-declarative"]').start ??= function() {
-        return {
-          num: 3,
-          get capsLabelComputed() {
-            this.hello()
-            return this.label.toUpperCase()
-          },
+      document.querySelector('heart-ml[tag="im-declarative"]').extend = (base) =>
+      class extends base {
+        start() {
+          this.num = 3
+        }
 
-          hello() {
-            console.warn("Hello world!" + this.num)
-          },
+        get capsLabelComputed() {
+          this.hello()
+          return this.label.toUpperCase()
+        }
 
-          taDa() {
-            alert("🎉")
-          }
+        hello() {
+          console.warn("Hello world! " + this.num)
+        }
+
+        taDa() {
+          alert("🎉")
         }
       }
     </script>
@@ -97,6 +101,7 @@
   </script>
 
   <script>
+    // Declarative Shadow DOM (DSD) polyfill
     ;(function attachShadowRoots(root) {
       root.querySelectorAll("template[shadowrootmode]").forEach(template => {
         const mode = template.getAttribute("shadowrootmode");

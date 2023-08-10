@@ -72,6 +72,15 @@ export class TestMe extends HeartElement {
   get bazComputed() {
     return this.baR.length
   }
+
+  get childHello() {
+    this._blahGoo ??= this.querySelector("blah-goo")
+    return this._blahGoo.hello
+  }
+
+  get childHelloMaxLength() {
+    return this._blahGoo?.hello?.length > 10
+  }
 }
 
 // setTimeout(() => {

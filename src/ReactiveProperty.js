@@ -69,26 +69,22 @@ class ReactiveProperty {
   /**
    * Parses a string attribute value and attempts to set the signal value accordingly
    *
-   * @param value {string | undefined} - you can directly pass in the attribute value, or let it get
-   *  read in from the element
+   * @param value {string} the attribute value
    */
   refreshFromAttribute(value) {
-    const newValue =
-      typeof value === "undefined" ? this.element.getAttribute(this.attribute) : value
-
     if (this._inCallback) return
 
     this._signalling = true
 
     if (this.type === "boolean" || (this.type == null && typeof this.signal.peek() === "boolean")) {
       this.type = "boolean"
-      this.signal.value = !!newValue
+      this.signal.value = !!(value === "" ? true : value)
     } else if (
       this.type === "number" ||
       (this.type == null && typeof this.signal.peek() === "number")
     ) {
       this.type = "number"
-      this.signal.value = Number(newValue == null ? null : newValue)
+      this.signal.value = Number(value == null ? null : value)
     } else if (
       this.type === "object" ||
       (this.type == null &&
@@ -96,14 +92,14 @@ class ReactiveProperty {
     ) {
       this.type = "object"
       try {
-        this.signal.value = newValue ? JSON.parse(newValue) : this.signal.peek().constructor()
+        this.signal.value = value ? JSON.parse(value) : this.signal.peek().constructor()
       } catch (ex) {
         console.warn(`${ex.message} for ${this.element.localName}[${this.attribute}]`)
         this.signal.value = this.signal.peek().constructor()
       }
     } else {
       this.type = "string"
-      this.signal.value = newValue
+      this.signal.value = value
     }
 
     this._signalling = false

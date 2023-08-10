@@ -33,9 +33,6 @@ class HostEffects {
     this.processNodes(attr, this.element.shadowRoot.querySelectorAll(`[${attr}]`))
   }
 
-  /**
-   * Only attempt this if you know what you're doing!
-   */
   processElementChildren(attr) {
     this.processNodes(attr, this.element.querySelectorAll(`[${attr}]`), true)
   }
@@ -46,7 +43,7 @@ class HostEffects {
    * `host-effect="$directive(.count)"`
    * `host-effect="@textContent = .count; $directive(.count)"`
    * 
-   * @param {string}
+   * @param {string} attr
    * @param {NodeListOf<Element>} effectNodes
    */
   processNodes(attr, effectNodes, elementsBoundary = false) {
@@ -79,7 +76,7 @@ class HostEffects {
             this.effectDisposals.push(effect(() => {
               const value = this.element[expression[1].substring(1)]
 
-              if ("resumed" in this.element) node[expression[0]] = value
+              if (this.element["resumed"]) node[expression[0]] = value
             }))
           } else if (statement.startsWith("$")) {
             // directive
@@ -101,7 +98,7 @@ class HostEffects {
                   return this.element[argStr.substring(1)]
                 })
 
-                if ("resumed" in this.element) this.directives[directiveName.trim().substring(1)]?.(this, ...args)
+                if (this.element["resumed"]) this.directives[directiveName.trim().substring(1)]?.(this, ...args)
               }))
             }
           } else {
@@ -123,7 +120,7 @@ class HostEffects {
                 return this.element[argStr.substring(1)]
               })
 
-              if ("resumed" in this.element) this.element[methodName.trim()]?.(...args)
+              if (this.element["resumed"]) this.element[methodName.trim()]?.(...args)
             }))
           }
         })

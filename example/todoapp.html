@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Simple Todos</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background: lightskyblue;
+      margin: 2vw;
+    }
+
+    h1 {
+      font-weight: 1000;
+    }
+  </style>
+  <script src="/js/todoapp.js" defer></script>
+  <script>
+    /**
+     * Shorthand to let you create an element and assign properties in one go
+     * 
+     * @param {string} tagName
+     * @param {Record<string, any>} options
+     * @return {HTMLElement}
+     */
+    function createElement(tagName, options = {}) {
+      return Object.assign(document.createElement(tagName), options)
+    }
+  </script>
+  <script>new EventSource('/esbuild').addEventListener('change', () => location.reload())</script>
+</head>
+<body>
+
+<h1>Simple Todos</h1>
+
+<!--
+# Application
+
+In a not-static app, the following would mostly be server-rendered based on components defined
+there. So <todo-list> would be one component, and then it would render out a loop of <todo-item>
+components. Here we just do the WET thing and hand code a couple to start with.
+-->
+
+<todo-list todos-state='[{"itemid": 1}, {"itemid": 2}]'>
+  <template shadowrootmode="open">
+    <slot name="items"></slot>
+
+    <p><button type="button" host-event="click#add">Add Todo</button></p>
+
+    <p>
+      Completed: <strong host-lazy-effect="@textContent = .completedCount">1</strong>
+      &nbsp;
+      Remaining: <strong host-lazy-effect="@textContent = .remainingCount">1</strong>
+    </p>
+
+    <style>
+      :host {
+        display: block;
+        background: #d4eeff;
+        padding: 1rem 2rem;
+        border-radius: 30px;
+      }
+
+      ::slotted(ul) {
+        font-size: 125%;
+        list-style-type: none;
+        padding: 0;
+        display: grid;
+        gap: 0.75rem;
+      }
+
+      button {
+        font: inherit;
+        font-weight: bold;
+        background: #055699;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: .75em 1em;
+      }
+    </style>
+  </template>
+  <ul slot="items">
+    <li>
+      <todo-item itemid="1" completed>
+        <template shadowrootmode="open">
+          <label>
+            <input type="checkbox" host-effect="@checked = .completed" host-event="change#check" />
+            <slot host-effect="$styleMap(.checkedStyles)"></slot>
+          </label>
+          <style>
+            input {
+              margin-inline-end: 1rem;
+              vertical-align: .125rem;
+              scale: 2;
+              accent-color: #055699;
+            }
+            slot {
+              display: inline-block;
+            }
+          </style>
+        </template>
+        <todo-item-label>Buy milk</todo-item-label>
+      </todo-item>
+    </li>
+    <li>
+      <todo-item itemid="2">
+        <template shadowrootmode="open">
+          <label>
+            <input type="checkbox" host-effect="@checked = .completed" host-event="change#check" />
+            <slot host-effect="$styleMap(.checkedStyles)"></slot>
+          </label>
+          <style>
+            input {
+              margin-inline-end: 1rem;
+              vertical-align: .125rem;
+              scale: 2;
+              accent-color: #055699;
+            }
+            slot {
+              display: inline-block;
+            }
+          </style>
+        </template>
+        <todo-item-label>Wash the cat</todo-item-label>
+      </todo-item>
+    </li>
+  </ul>
+</todo-list>
+
+<!--
+# Element Declarations
+
+Our web components get defined here. Instead of writing a whole component purely in JavaScript,
+we can largely set up everything using declarative markup. JavaScript is only used for true
+logic.
+-->
+
+<heart-ml
+  tag="todo-list"
+  properties='{
+    "todosState": { "attribute": "todos-state" },
+    "completedCount": { "computed": true },
+    "remainingCount": { "computed": true }
+  }'
+  declarative-effects='{ "light": true, "shadow": true }'
+  declarative-events='["click"]'
+  queries='{
+    "light": {
+      "list": "ul",
+      "items": ["todo-item"],
+      "completedItems": ["todo-item[completed]"],
+      "remainingItems": ["todo-item:not([completed])"]
+    }
+  }'
+>
+  <script type="module">
+    document.querySelector('heart-ml[tag="todo-list"]').extend = base =>
+    class TodoList extends base {
+      start() {
+        this.todosState = []
+      }
+
+      get completedCountComputed() {
+        return this.todosState.length - this.remainingItems.length
+      }
+
+      get remainingCountComputed() {
+        return this.todosState.length - this.completedItems.length
+      }
+
+      add() {
+        const name = prompt("What would you like to do today?")
+
+        if (name !== null) {
+          const newTodo = createElement("todo-item", {
+            itemid: Math.max(...this.todosState.map(item => item.itemid)) + 1,
+            label: name
+          })
+
+          const newListItem = createElement("li")
+          newListItem.append(newTodo)
+
+          this.list.append(newListItem)
+          this.updateTodos({ itemid: newTodo.itemid })
+        }
+      }
+
+      updateTodos(newItem = null) {
+        this.todosState = [...this.todosStateSignal.peek(), ...(newItem ? [newItem] : [])]
+      }
+    }
+  </script>
+</heart-ml>
+
+<heart-ml
+  tag="todo-item"
+  properties='{
+    "itemid": {},
+    "completed": {}
+  }'
+  declarative-effects='{ "light": true, "shadow": true }'
+  declarative-events='["change"]'
+  queries='{
+    "light": {
+      "itemLabel": "todo-item-label"
+    }
+  }'
+>
+  <template data-html>
+    <label>
+      <input type="checkbox" host-effect="@checked = .completed" host-event="change#check" />
+      <slot host-effect="$styleMap(.checkedStyles)"></slot>
+    </label>
+    <style>
+      input {
+        margin-inline-end: 1rem;
+        vertical-align: .125rem;
+        scale: 2;
+        accent-color: #055699;
+      }
+      slot {
+        display: inline-block;
+      }
+    </style>
+  </template>
+
+  <script type="module">
+    document.querySelector('heart-ml[tag="todo-item"]').extend = base =>
+    class TodoItem extends base {
+      start() {
+        this.itemid = 0
+        /**
+         * Determines if the item has been completed.
+         * 
+         * @type {boolean}
+         */
+        this.completed = false
+      }
+
+      connectedCallback() {
+        this.lifecycle.mount(subscribe => {
+          subscribe("completed", () => {
+            this.closest("todo-list").updateTodos()
+          })
+        })
+      }
+
+      check(event) {
+        this.completed = event.target.checked
+      }
+
+      get checkedStyles() {
+        return {
+          fontWeight: this.completed ? "normal" : "bold",
+          textDecoration: this.completed ? "line-through" : "none"
+        }
+      }
+
+      get label() {
+        return this.itemLabel.textContent
+      }
+
+      set label(name) {
+        if (!this.itemLabel) {
+          this.append(createElement("todo-item-label"))
+        }
+
+        this.itemLabel.textContent = name
+      }
+    }
+  </script>
+</heart-ml>
+
+<script>
+  // Declarative Shadow DOM (DSD) polyfill
+  ;(function attachShadowRoots(root) {
+    root.querySelectorAll("template[shadowrootmode]").forEach(template => {
+      const mode = template.getAttribute("shadowrootmode");
+      const shadowRoot = template.parentNode.attachShadow({ mode });
+      shadowRoot.appendChild(template.content);
+      template.remove();
+      attachShadowRoots(shadowRoot);
+    });
+  })(document);
+</script>
+</body>
+</html>

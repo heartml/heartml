@@ -15,6 +15,7 @@ export class HeartLifecycle {
    * Kicks it all off!
    */
   start() {
+    this.element.resumed = false
     this.element.start?.()
 
     Reflect.ownKeys(this.element.constructor).forEach(key => {
@@ -36,10 +37,10 @@ export class HeartLifecycle {
       fn((...args) => {
         effect(() => {
           args.forEach(arg => {
-            if (typeof arg === "string") this[arg]
+            if (typeof arg === "string") this.element[arg]
           })
           // @ts-ignore
-          if ("resumed" in this.element) args[args.length - 1]()
+          if (this.element.resumed) args[args.length - 1]()
         })
       })
     }
@@ -99,7 +100,7 @@ export class HeartElement extends HTMLElement {
     this.lifecycle.cleanup()
   }
 
-  attributeChangedCallback(...args) {
-    this.lifecycle.attributeChanged(...args)
+  attributeChangedCallback(name, oldValue, newValue) {
+    this.lifecycle.attributeChanged(name, oldValue, newValue)
   }
 }
