@@ -1,6 +1,6 @@
-import { Heartml, HeartElement } from "./core.js"
+import Heartml, { HeartElement } from "./heartml.js"
 
-class DeclarativeHeartML extends HTMLElement {
+class DeclarativeHeartElement extends HTMLElement {
   static {
     customElements.define("heart-ml", this)
   }
@@ -16,7 +16,31 @@ class DeclarativeHeartML extends HTMLElement {
     setTimeout(() => {
       const tagName = this.getAttribute("tag")
       if (!customElements.get(tagName)) {
-        const newCE = this.extend ? this.extend(HeartElement) : class extends HeartElement {}
+        let newCE
+        if ("extend" in this) {
+          newCE = this.extend(HeartElement)
+        }
+        else if (this.hasAttribute("global")) {
+          let globalName = this.getAttribute("global")
+          if (globalName === "") {
+            globalName = this.camelCase(`-${tagName}`)
+          }
+
+          newCE = globalThis[globalName]
+          if (newCE) {
+            Object.defineProperty(newCE, "name", {
+              get() {
+                return globalName
+              }
+            })
+          } else {
+            console.warn(`The "${globalName}" class could not be found in the global scope.`)
+            console.debug(this)
+            return
+          }
+        } else {
+          newCE = class extends HeartElement {}
+        }
 
         const template = this.querySelector("template[data-html]")
         const stylesTemplate = this.querySelector("template[data-css]")
@@ -36,4 +60,4 @@ class DeclarativeHeartML extends HTMLElement {
   }
 }
 
-export default DeclarativeHeartML
+export default DeclarativeHeartElement

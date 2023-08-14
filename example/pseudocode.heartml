@@ -1,0 +1,81 @@
+<script server-exec type="module">
+  class PseudoCodeComponent extends HeartmlServerComponent {
+    static {
+      this.define("pseudo-code")
+    }
+
+    constructor({ foo }) {
+      this.bar = foo
+    }
+
+    renderCallback(elem) {
+      // do extra stuff with element
+    }
+  }
+</script>
+
+<script server-exec type="application/ruby">
+  class PseudoCodeComponent < Heartml::ServerComponent
+    define :pseudo_code
+
+    def initialize(foo:)
+      @bar = foo
+    end
+  end
+</script>
+
+<script server type="application/x-httpd-php">
+  class PseudoCodeComponent extends Heartml\ServerComponent {
+    public static function setup($config) {
+      $config->::define("pseudo-code");
+    }
+
+    public function __construct($foo) {
+      $this->bar = $foo;
+    }
+  }
+</script>
+
+<template>
+  <slot name="wee"></slot>
+
+  <p>This is my shadow DOM template! <script server-lang="ruby:inline" type="text/template">
+    @process_incoming_data = File.read("woo.txt")
+    @process_incoming_data.upcase
+  </script></p>
+
+  <slot></slot>
+
+  <script server-lang="js:inline" type="module">
+    const process_incoming_data = fs.readSync("woo.txt")
+    process_incoming_data.toUpperCase()
+  </script>
+</template>
+
+<template server-children>
+  <server-slot></server-slot>
+
+  <p>This appears in light DOM as well!</p>
+
+  <server-slot name="foo"></server-slot>
+  <!-- render with <p server-slot="foo">Component to slot in!</p> -->
+
+  <another-element server-args="baz:bee; boo:bork"></another-element>
+</template>
+
+<style>
+  :host {
+    display: block;
+    background: green;
+    color: white;
+    padding: 1rem;
+  }
+</style>
+
+<script type="module">
+  class Pseudo extends HeartElement {
+    start() {
+      this.bar = ""
+    }
+  }
+</script>

@@ -2,7 +2,7 @@
 import ReactiveProperty from "./ReactiveProperty.js"
 import HostEffects from "./HostEffects.js"
 import { show, hide, classMap, styleMap } from "./directives.js"
-import { signal, computed } from "@preact/signals-core"
+import { signal, computed, Signal } from "@preact/signals-core"
 
 export const css = (strAry, ...values) => {
   const strings = strAry.flatMap((item, index) => [item, values[index]])
@@ -129,7 +129,8 @@ export const properties = {
         })
         element[`${key}Signal`] = computedSignal
       } else {
-        const signalObject = signal(element[key])
+        const signalValue = element[key]
+        const signalObject = signalValue instanceof Signal ? signalValue : signal(signalValue)
         element.reactiveAttributes[value.attribute || key] = new ReactiveProperty(element, signalObject, { name: key, attribute: value.attribute })
         element[`${key}Signal`] = signalObject
       }

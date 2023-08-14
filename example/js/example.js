@@ -2,7 +2,7 @@
 import Heartml, { HeartElement } from "../../src/heartml.js"
 import "./pluginsetup.js"
 import "./BlahGoo.js"
-import "../../src/DeclarativeHeartML.js"
+import "../../src/DeclarativeHeartElement.js"
 
 /**
  * Woweee!
