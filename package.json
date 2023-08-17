@@ -1,6 +1,6 @@
 {
   "name": "heartml",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Postmodern HTML. Web components with the hots for declarative markup.",
   "private": false,
   "author": "Jared White",
@@ -22,7 +22,7 @@
     "build:cdn": "esbuild src/heartml.cdn.js --bundle --outdir=dist --minify",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": "https://github.com/whitefusionhq/crystallized",
+  "repository": "https://github.com/heartml/heartml",
   "dependencies": {
     "@preact/signals-core": "^1.4.0"
   },

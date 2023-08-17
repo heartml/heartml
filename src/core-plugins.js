@@ -2,7 +2,7 @@
 import ReactiveProperty from "./ReactiveProperty.js"
 import HostEffects from "./HostEffects.js"
 import { show, hide, classMap, styleMap } from "./directives.js"
-import { signal, computed, Signal } from "@preact/signals-core"
+import { signal, computed, effect, Signal } from "@preact/signals-core"
 
 export const css = (strAry, ...values) => {
   const strings = strAry.flatMap((item, index) => [item, values[index]])
@@ -66,19 +66,19 @@ export const declarativeEvents = {
        * @param {Event} event
        */
       function(event) {
-        const node = /** @type {Element} */ (event.target)
+        let node = /** @type {Element} */ (event.target)
         let eventSyntax = node.getAttribute("host-event")
         if (!eventSyntax) {
-          const eventParent = node.closest("[host-event]") || element
-          if (element.contains(eventParent) || element.shadowRoot?.contains(eventParent)) {
-            eventSyntax = eventParent.getAttribute("host-event")
+          node = node.closest("[host-event]") || element
+          if (element.contains(node) || element.shadowRoot?.contains(node)) {
+            eventSyntax = node.getAttribute("host-event")
           }
         }
 
         const [eventType, methodName] = (eventSyntax || "").split("#")
 
         if (event.type === eventType && element[methodName.trim()]) {
-          element[methodName.trim()](event)
+          element[methodName.trim()](event, node)
         } else {
           const eventTypeCleaned = `-${event.type}`
             .replace(":", "-")
@@ -133,6 +133,26 @@ export const properties = {
         const signalObject = signalValue instanceof Signal ? signalValue : signal(signalValue)
         element.reactiveAttributes[value.attribute || key] = new ReactiveProperty(element, signalObject, { name: key, attribute: value.attribute })
         element[`${key}Signal`] = signalObject
+
+        // Delayed signals
+        if (value.delayed) {
+          const delayedSignal = signal(signalObject.peek())
+          Object.defineProperty(element, `${key}Delayed`, {
+            get() {
+              return delayedSignal.value
+            },
+            enumerable: true,
+            configurable: false
+          })
+          element[`${key}DelayedSignal`] = delayedSignal
+          effect(() => {
+            const newValue = signalObject.value
+            // TODO: allow listening to CSS animations rather than timeout
+            setTimeout(() => {
+              delayedSignal.value = newValue
+            }, value.delayed)
+          })
+        }
       }
     }
   },
