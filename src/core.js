@@ -68,6 +68,8 @@ export class HeartLifecycle {
 export class HeartElement extends HTMLElement {
   /**
    * Set up a custom element to hook into the Heartml lifecycle and get registered
+   * Static properties/methods will be treated as plugin configurations. However,
+   * if it starts with `_` then it will be ignored.
    * 
    * @param {string} tagName - the custom element's tag to register
    */
@@ -77,7 +79,7 @@ export class HeartElement extends HTMLElement {
     Reflect.ownKeys(this).forEach(key => {
       if (!reservedKeys.includes(key.toString()) && Heartml.plugins[key]) {
         Heartml.plugins[key].static?.(this)
-      } else if (!reservedKeys.includes(key.toString())) {
+      } else if (!key.toString().startsWith("_") && !reservedKeys.includes(key.toString())) {
         console.warn(`The "${key.toString()}" Heartml plugin hasn't been initialized.`)
         console.debug(this)
       }

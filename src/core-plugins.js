@@ -66,14 +66,24 @@ export const declarativeEvents = {
        * @param {Event} event
        */
       function(event) {
-        let node = /** @type {Element} */ (event.target)
-        let eventSyntax = node.getAttribute("host-event")
-        if (!eventSyntax) {
-          node = node.closest("[host-event]") || element
-          if (element.contains(node) || element.shadowRoot?.contains(node)) {
-            eventSyntax = node.getAttribute("host-event")
+        let eventSyntax
+        let node = /** @type {Element} */(event.target)
+
+        const composedNode = event.composedPath().find((el) => {
+          if (
+            // make sure we're dealing with Element, not Document/Window
+            (el instanceof Element) &&
+            // make sure the element is our component or a light DOM/shadow child
+            (el === element || element.contains(el) || element.shadowRoot?.contains(el)) &&
+            // and has the right attribute?
+            el.hasAttribute("host-event")
+          ) {
+            return el
           }
-        }
+        })
+
+        if (composedNode) node = /** @type {Element} */(composedNode)
+        if (node.hasAttribute("host-event")) eventSyntax = node.getAttribute("host-event")
 
         const [eventType, methodName] = (eventSyntax || "").split("#")
 
