@@ -1,6 +1,6 @@
 {
   "name": "heartml",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Postmodern HTML. Web components with the hots for declarative markup.",
   "private": false,
   "author": "Jared White",
@@ -20,6 +20,7 @@
     "build": "rm -rf dist && npm run build:esm && npm run build:cdn",
     "build:esm": "esbuild src/heartml.js src/DeclarativeHeartElement.js --bundle --splitting --external:@preact/signals-core --chunk-names=heartml-shared-[hash] --outdir=dist --format=esm",
     "build:cdn": "esbuild src/heartml.cdn.js --bundle --outdir=dist --minify",
+    "release": "npm build && npm publish",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": "https://github.com/heartml/heartml",
