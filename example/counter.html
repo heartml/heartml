@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Counters</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background: lightskyblue;
+      margin: 2vw;
+    }
+
+    h1 {
+      font-weight: 900;
+    }
+  </style>
+  <script src="/js/cdn-style-app.js" defer></script>
+  <script>new EventSource('/esbuild').addEventListener('change', () => location.reload())</script>
+</head>
+<body>
+
+<h1>Counters</h1>
+
+<heart-ml tag="counter-widget" properties='{"count": {}}' declarative-effects='{"shadow": true }' declarative-events='["click"]'>
+  <script type="module">
+    const globalCount = Heartml.signal(20)
+    class CounterWidget extends HeartElement {
+      start() { this.count = globalCount }
+      increment(event) { this.count++ }
+      decrement(event) { this.count-- }
+    }
+    CounterWidget.hoist()
+  </script>
+</heart-ml>
+
+<counter-widget>
+  <template shadowrootmode="open">
+    <button host-event="click#decrement">-</button>
+    <strong host-effect="@textContent=.count" style="display: inline-block; width: 4rem">0</strong>
+    <button host-event="click#increment">+</button>
+    <style>
+      :host { display: block; text-align: center; font-size: 200%; }
+      button { font-size: inherit; }
+    </style>
+  </template>
+</counter-widget>
+
+<counter-widget>
+  <template shadowrootmode="open">
+    <button host-event="click#decrement">-</button>
+    <strong host-effect="@textContent=.count" style="display: inline-block; width: 4rem">0</strong>
+    <button host-event="click#increment">+</button>
+    <style>
+      :host { display: block; text-align: center; font-size: 200%; }
+      button { font-size: inherit; }
+    </style>
+  </template>
+</counter-widget>
+
+<counter-widget>
+  <template shadowrootmode="open">
+    <button host-event="click#decrement">-</button>
+    <strong host-effect="@textContent=.count" style="display: inline-block; width: 4rem">0</strong>
+    <button host-event="click#increment">+</button>
+    <style>
+      :host { display: block; text-align: center; font-size: 200%; }
+      button { font-size: inherit; }
+    </style>
+  </template>
+</counter-widget>
+
+<counter-widget>
+  <template shadowrootmode="open">
+    <button host-event="click#decrement">-</button>
+    <strong host-effect="@textContent=.count" style="display: inline-block; width: 4rem">0</strong>
+    <button host-event="click#increment">+</button>
+    <style>
+      :host { display: block; text-align: center; font-size: 200%; }
+      button { font-size: inherit; }
+    </style>
+  </template>
+</counter-widget>
+
+</body>
+</html>

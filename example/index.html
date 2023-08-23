@@ -69,8 +69,7 @@
       </style>
     </template>
     <script type="module">
-      document.querySelector('heart-ml[tag="im-declarative"]').extend = (base) =>
-      class extends base {
+      class ImDeclarative extends HeartElement {
         start() {
           this.num = 3
         }
@@ -88,6 +87,7 @@
           alert("🎉")
         }
       }
+      ImDeclarative.hoist()
     </script>
   </heart-ml>
 

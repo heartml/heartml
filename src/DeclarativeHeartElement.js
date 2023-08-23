@@ -12,51 +12,48 @@ class DeclarativeHeartElement extends HTMLElement {
       .reduce((a, b) => a + b.charAt(0).toUpperCase() + b.slice(1))
   }
 
-  connectedCallback() {
-    setTimeout(() => {
-      const tagName = this.getAttribute("tag")
-      if (!customElements.get(tagName)) {
-        let newCE
-        if ("extend" in this) {
-          newCE = this.extend(HeartElement)
-        }
-        else if (this.hasAttribute("global")) {
-          let globalName = this.getAttribute("global")
-          if (globalName === "") {
-            globalName = this.camelCase(`-${tagName}`)
-          }
+  handleEvent(e) {
+    const scriptTag = e.target
+    const tagName = this.getAttribute("tag")
+    if (!customElements.get(tagName)) {
+      const globalName = scriptTag.textContent.match(/class (\w+) extends /)?.[1]
 
-          newCE = globalThis[globalName]
-          if (newCE) {
-            Object.defineProperty(newCE, "name", {
-              get() {
-                return globalName
-              }
-            })
-          } else {
-            console.warn(`The "${globalName}" class could not be found in the global scope.`)
-            console.debug(this)
-            return
-          }
-        } else {
-          newCE = class extends HeartElement {}
-        }
-
-        const template = this.querySelector("template[data-html]")
-        const stylesTemplate = this.querySelector("template[data-css]")
-        if (template) newCE.template = template.content
-        if (stylesTemplate) newCE.styles = stylesTemplate.content.querySelector("style")
-
-        for (const attribute of this.attributes) {
-          const pluginName = this.camelCase(attribute.name)
-          if (pluginName in Heartml.plugins) {
-            newCE[pluginName] = JSON.parse(attribute.value)
-          }
-        }
-
-        newCE.define(tagName)
+      if (!globalName) {
+        console.warn(`A "class [Name] extends" pattern could not be found in the module script.`)
+        console.debug(this)
+        return
       }
-    })
+
+      const newCE = globalThis[globalName]
+
+      if (!newCE) {
+        console.warn(`The "${globalName}" class could not be found in the global scope.`)
+        console.debug(this)
+        return
+      }
+
+      const template = this.querySelector("template[data-html]")
+      const stylesTemplate = this.querySelector("template[data-css]")
+      if (template) newCE.template = template.content
+      if (stylesTemplate) newCE.styles = stylesTemplate.content.querySelector("style")
+      
+      for (const attribute of this.attributes) {
+        const pluginName = this.camelCase(attribute.name)
+        if (pluginName in Heartml.plugins) {
+          newCE[pluginName] = JSON.parse(attribute.value)
+        }
+      }
+      
+      newCE.define(tagName)
+    }
+  }
+
+  connectedCallback() {
+    this.addEventListener("load", this, true)
+  }
+
+  disconnectedCallback() {
+    this.removeEventListener("load", this, true)
   }
 }
 

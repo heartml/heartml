@@ -88,6 +88,14 @@ export class HeartElement extends HTMLElement {
     customElements.define(tagName, this)
   }
 
+  /**
+   * Add this class to the global object (aka `window`). For declarative elements,
+   * this is essential.
+   */
+  static hoist() {
+    globalThis[this.name] = this
+  }
+
   constructor() {
     super()
 
