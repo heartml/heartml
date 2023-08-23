@@ -12,10 +12,11 @@ class DeclarativeHeartElement extends HTMLElement {
       .reduce((a, b) => a + b.charAt(0).toUpperCase() + b.slice(1))
   }
 
-  handleEvent(e) {
-    const scriptTag = e.target
+  handleEvent(event) {
     const tagName = this.getAttribute("tag")
+
     if (!customElements.get(tagName)) {
+      const scriptTag = this.querySelector("script")
       const globalName = scriptTag.textContent.match(/class (\w+) extends /)?.[1]
 
       if (!globalName) {
@@ -23,6 +24,8 @@ class DeclarativeHeartElement extends HTMLElement {
         console.debug(this)
         return
       }
+
+      if (event.detail.globalClassName !== globalName) return;
 
       const newCE = globalThis[globalName]
 
@@ -49,11 +52,11 @@ class DeclarativeHeartElement extends HTMLElement {
   }
 
   connectedCallback() {
-    this.addEventListener("load", this, true)
+    document.addEventListener("heartml:hoist", this)
   }
 
   disconnectedCallback() {
-    this.removeEventListener("load", this, true)
+    document.removeEventListener("heartml:hoist", this)
   }
 }
 

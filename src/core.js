@@ -90,10 +90,18 @@ export class HeartElement extends HTMLElement {
 
   /**
    * Add this class to the global object (aka `window`). For declarative elements,
-   * this is essential.
+   * an event is dispatched so that the parent `heart-ml` element can complete setup.
    */
   static hoist() {
     globalThis[this.name] = this
+
+    if (this.name !== "HeartElement") {
+      setTimeout(() => {
+        document.dispatchEvent(
+          new CustomEvent("heartml:hoist", { detail: { globalClassName: this.name } })
+        )
+      })
+    }
   }
 
   constructor() {
