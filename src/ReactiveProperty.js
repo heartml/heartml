@@ -53,7 +53,7 @@ class ReactiveProperty {
           this.element.setAttribute(this.attribute, JSON.stringify(value))
         } else if (value == null || value === false) {
           this.element.removeAttribute(this.attribute)
-        } else if (!value) {
+        } else if (value === true) {
           this.element.setAttribute(this.attribute, "")
         } else {
           this.element.setAttribute(this.attribute, value)

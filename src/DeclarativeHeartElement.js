@@ -17,7 +17,7 @@ class DeclarativeHeartElement extends HTMLElement {
 
     if (!customElements.get(tagName)) {
       const scriptTag = this.querySelector("script")
-      const globalName = scriptTag.textContent.match(/class (\w+) extends /)?.[1]
+      const globalName = scriptTag.textContent.match(/class\s+(\w+)\s+extends\s+/)?.[1]
 
       if (!globalName) {
         console.warn(`A "class [Name] extends" pattern could not be found in the module script.`)
