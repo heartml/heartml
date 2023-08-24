@@ -1,6 +1,8 @@
-<button host-event="click#decrement">-</button>
-<strong host-effect="@textContent=.count" style="display: inline-block; width: 4rem">0</strong>
-<button host-event="click#increment">+</button>
+<template>
+  <button host-event="click#decrement">-</button>
+  <strong host-effect="@textContent=.count" style="display: inline-block; width: 4rem">0</strong>
+  <button host-event="click#increment">+</button>
+</template>
 
 <style>
   :host { display: block; text-align: center; font-size: 200%; }

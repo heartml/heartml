@@ -210,7 +210,13 @@ export const template = {
   connected(element) {
     if (!element.shadowRoot && !element.querySelector("template[shadowrootmode]")) {
       element.attachShadow({mode: "open"})
-      element.shadowRoot.append(element.constructor.template.cloneNode(true))
+
+      const tmpl = element.constructor.template
+      const foundTmpl = [...tmpl.children].find(node => node.localName === "template" && !node.id)?.content || tmpl
+      element.shadowRoot.append(foundTmpl.cloneNode(true))
+
+      const foundStyles = [...tmpl.children].find(node => node.localName === "style")
+      if (foundStyles) element.shadowRoot.append(foundStyles.cloneNode(true))
       if (element.constructor.styles) {
         element.shadowRoot.append(element.constructor.styles.cloneNode(true))
       }
