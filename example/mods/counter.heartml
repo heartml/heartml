@@ -1,0 +1,22 @@
+<button host-event="click#decrement">-</button>
+<strong host-effect="@textContent=.count" style="display: inline-block; width: 4rem">0</strong>
+<button host-event="click#increment">+</button>
+
+<style>
+  :host { display: block; text-align: center; font-size: 200%; }
+  button { font-size: inherit; }
+</style>
+
+<script type="module">
+  class Counter extends HeartElement {
+    static template = import.meta.document
+    static properties={"count": {}}
+    static declarativeEffects={"shadow": true }
+    static declarativeEvents=["click"]
+
+    start() { this.count = 0 }
+    increment(event) { this.count++ }
+    decrement(event) { this.count-- }
+  }
+  Counter.define("my-counter")
+</script>

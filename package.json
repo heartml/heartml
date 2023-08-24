@@ -1,6 +1,6 @@
 {
   "name": "heartml",
-  "version": "0.10.1",
+  "version": "0.11.0",
   "description": "Postmodern HTML. Web components with the hots for declarative markup.",
   "private": false,
   "author": "Jared White",
@@ -9,6 +9,7 @@
   "exports": {
     ".": "./dist/heartml.js",
     "./DeclarativeHeartElement.js": "./dist/DeclarativeHeartElement.js",
+    "./utils/HeartModules.js": "./dist/utils/HeartModules.js",
     "./src/*": "./src/*"
   },
   "files": [
@@ -18,9 +19,11 @@
   "scripts": {
     "dev": "esbuild example/js/example.js example/js/cdn-style-app.js --bundle --watch --servedir=example --outdir=example/js --serve=4000",
     "build": "rm -rf dist && npm run build:esm && npm run build:cdn",
-    "build:esm": "esbuild src/heartml.js src/DeclarativeHeartElement.js --bundle --splitting --external:@preact/signals-core --chunk-names=heartml-shared-[hash] --outdir=dist --format=esm",
+    "build:esm": "esbuild src/heartml.js src/DeclarativeHeartElement.js src/utils/HeartModules.js --bundle --splitting --external:@preact/signals-core --chunk-names=heartml-shared-[hash] --outdir=dist --format=esm",
     "build:cdn": "esbuild src/heartml.cdn.js --bundle --outdir=dist --minify",
     "release": "npm run build && npm publish",
+    "docs:dev": "npm run docs:frontend && cd docs && npx @11ty/eleventy --serve --port=4001",
+    "docs:frontend": "cd docs && esbuild frontend/playground.js --bundle --format=esm --outdir=src/js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": "https://github.com/heartml/heartml",
@@ -28,6 +31,10 @@
     "@preact/signals-core": "^1.4.0"
   },
   "devDependencies": {
-    "esbuild": "^0.18.17"
+    "@11ty/eleventy": "^2.0.1",
+    "@11ty/eleventy-plugin-webc": "^0.11.1",
+    "esbuild": "^0.18.17",
+    "markdown-it-attrs": "^4.1.6",
+    "playground-elements": "^0.18.1"
   }
 }

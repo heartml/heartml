@@ -69,6 +69,7 @@ export const declarativeEvents = {
         let eventSyntax
         let node = /** @type {Element} */(event.target)
 
+        // TODO: this should handle multiple events with ; between
         const composedNode = event.composedPath().find((el) => {
           if (
             // make sure we're dealing with Element, not Document/Window

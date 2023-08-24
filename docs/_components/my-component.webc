@@ -1,0 +1,10 @@
+<p @text="prop"></p>
+
+<style webc:scoped>
+  :host {
+    color: blue;
+  }
+  :host:defined {
+    color: rebeccapurple;
+  }
+  </style>

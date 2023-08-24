@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>WebC Example</title>
+
+    <style @raw="getBundle('css')" webc:keep></style>
+		<script @raw="getBundle('js')" webc:keep></script>
+    <!-- huh-->
+    <script webc:keep type="module" src="/js/playground.js"></script>
+
+    <style>
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      }
+
+      main {
+        max-width: 64rem;
+        margin-inline: auto;
+      }
+
+      playground-ide {
+        height: 400px;
+        --playground-preview-width: 40%;
+      }
+
+      @media (max-width: 700px) {
+        playground-ide {
+          height: auto;
+          flex-direction: column;
+          --playground-preview-width: 100%;
+        }
+        playground-ide::part(editor) {
+          height: 350px;
+        }
+      }
+    </style>
+	</head>
+	<body>
+    <main @raw="content"></main>
+    <my-component @prop="Hello World"></my-component>
+  </body>
+</html>

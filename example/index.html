@@ -48,6 +48,12 @@
     <button type="button" host-event="click#taDa">Ta Da!</button>
   </im-declarative>
 
+  <hr />
+
+  <my-counter count="5"></my-counter>
+
+  <hr />
+
   <heart-ml
     tag="im-declarative"
     properties='{ "label": {}, "capsLabel": { "computed": true }, "num": {} }'
@@ -98,6 +104,13 @@
       <p>Super dope. <span host-effect="@textContent = .label">. . .</span></p>
     `
     document.body.append(anotherEl)
+  </script>
+
+  <import-heart src="mods/counter.heartml"></import-heart>
+  <script>
+    document.addEventListener("heartml:import", (e) => {
+      console.log("It has been imported!", e.target)
+    })
   </script>
 
   <script>

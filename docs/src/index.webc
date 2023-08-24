@@ -1,0 +1,206 @@
+---
+layout: "default.webc"
+---
+
+<h1>Heartml! ya yo</h1>
+
+<template webc:type="11ty" 11ty:type="md">
+
+## I'm a heading {style="font-style:italic"}
+
+
+
+**This is great**
+
+</template>
+
+<playground-ide>
+  <script webc:keep type="sample/html" filename="index.html">
+
+<!doctype html>
+<head>
+  <script type="module" src="./component.js">&lt;/script>
+  <link rel="stylesheet" href="global.css" />
+</head>
+<body>
+  <my-component count="10">
+    <button host-event="click#decrement">Dec -</button>
+    Counter:
+    <span host-effect="@textContent = .count">0</span>
+    <button host-event="click#increment">Inc +</button>
+  </my-component>
+</body>
+
+  </script>
+
+  <script webc:keep type="sample/js" filename="component.js">
+
+import { HeartElement } from "heartml"
+
+class MyComponent extends HeartElement {
+  static properties = {
+    count: {}
+  }
+
+  static declarativeEffects = { light: true }
+
+  static declarativeEvents = ["click"]
+
+  static {
+    this.define("my-component")
+  }
+
+  start() {
+    this.count = 1
+  }
+
+  increment() {
+    this.count++
+  }
+
+  decrement() {
+    this.count--
+  }
+}
+
+  </script>
+
+  <script webc:keep type="sample/css" filename="global.css">
+
+body {
+  font-family: sans-serif;
+  font-size: 150%;
+}
+
+  </script>
+</playground-ide>
+
+<p>whoa</p>
+
+<playground-ide>
+  <script webc:keep type="sample/html" filename="index.html">
+
+<!doctype html>
+<head>
+  <script type="module" src="./component.js">&lt;/script>
+  <link rel="stylesheet" href="global.css" />
+</head>
+<body>
+  <name-change name="Jared White">
+    <p host-effect="@textContent = .name">x</p>
+    
+    <label>Rename:
+    <input type="text" host-effect="@value = .name" host-event="input#changeName" />
+    </label>
+  </name-change>
+</body>
+
+  </script>
+
+  <script webc:keep type="sample/js" filename="component.js">
+
+import { HeartElement } from "heartml"
+
+class MyComponent extends HeartElement {
+  static properties = {
+    name: {}
+  }
+
+  static declarativeEffects = { light: true }
+
+  static declarativeEvents = ["input"]
+
+  static {
+    this.define("name-change")
+  }
+
+  start() {
+    this.name = ""
+  }
+
+  changeName(event) {
+    this.name = event.target.value
+  }
+}
+
+  </script>
+
+  <script webc:keep type="sample/css" filename="global.css">
+
+body {
+  font-family: sans-serif;
+  font-size: 110%;
+}
+
+p {
+  font-size: 150%;
+  font-weight: bold;
+}
+
+input {
+  font: inherit;
+}
+
+  </script>
+</playground-ide>
+
+
+<playground-ide>
+  <script webc:keep type="sample/html" filename="index.html">
+
+<!doctype html>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/heartml@0.10.1">&lt;/script>
+  <link rel="stylesheet" href="global.css" />
+</head>
+<body>
+  <name-change>
+    <p host-effect="@textContent = .name">x</p>
+    
+    <label>Phone number:
+    <input type="text" host-effect="@value = .name" host-event="input#changeName" />
+    </label>
+  </name-change>
+
+  <heart-ml tag="name-change"
+    properties='{ "name": {} }'
+    declarative-effects='{ "light": true }'
+    declarative-events='["input"]'
+  >
+    <script type="module">
+      class NameChange extends HeartElement {
+        start() {
+          this.name = ""
+        }
+      
+        changeName(event) {
+          this.name = event.target.value.replace(/[a-zA-Z]*/g, "")
+        }
+      }
+      NameChange.hoist()
+    &lt;/script>
+  </heart-ml>
+</body>
+
+  </script>
+
+  <script webc:keep type="sample/css" filename="global.css">
+
+body {
+  font-family: sans-serif;
+  font-size: 110%;
+}
+
+p {
+  font-size: 150%;
+  font-weight: bold;
+}
+
+input {
+  font: inherit;
+}
+
+  </script>
+</playground-ide>
+
+<my-component @prop="neeet"></my-component>
