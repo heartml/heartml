@@ -3,7 +3,7 @@ import Heartml, { HeartElement } from "../../src/heartml.js"
 import "./pluginsetup.js"
 import "./BlahGoo.js"
 import "../../src/DeclarativeHeartElement.js"
-import "../../src/utils/HeartModules.js"
+import "../../src/utils/HeartModule.js"
 HeartElement.hoist()
 
 /**

@@ -1,6 +1,6 @@
 {
   "name": "heartml",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "description": "Postmodern HTML. Web components with the hots for declarative markup.",
   "private": false,
   "author": "Jared White",
@@ -9,7 +9,7 @@
   "exports": {
     ".": "./dist/heartml.js",
     "./DeclarativeHeartElement.js": "./dist/DeclarativeHeartElement.js",
-    "./utils/HeartModules.js": "./dist/utils/HeartModules.js",
+    "./utils/HeartModule.js": "./dist/utils/HeartModule.js",
     "./src/*": "./src/*"
   },
   "files": [
@@ -19,7 +19,7 @@
   "scripts": {
     "dev": "esbuild example/js/example.js example/js/cdn-style-app.js --bundle --watch --servedir=example --outdir=example/js --serve=4000",
     "build": "rm -rf dist && npm run build:esm && npm run build:cdn",
-    "build:esm": "esbuild src/heartml.js src/DeclarativeHeartElement.js src/utils/HeartModules.js --bundle --splitting --external:@preact/signals-core --chunk-names=heartml-shared-[hash] --outdir=dist --format=esm",
+    "build:esm": "esbuild src/heartml.js src/DeclarativeHeartElement.js src/utils/HeartModule.js --bundle --splitting --external:@preact/signals-core --chunk-names=heartml-shared-[hash] --outdir=dist --format=esm",
     "build:cdn": "esbuild src/heartml.cdn.js --bundle --outdir=dist --minify",
     "release": "npm run build && npm publish",
     "docs:dev": "npm run docs:frontend && cd docs && npx @11ty/eleventy --serve --port=4001",

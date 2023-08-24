@@ -203,4 +203,69 @@ input {
   </script>
 </playground-ide>
 
+
+
+<h2>Heartml Module Files</h2>
+
+<playground-ide>
+  <script webc:keep type="sample/html" filename="index.html">
+
+<!doctype html>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/heartml@0.11.0">&lt;/script>
+  <link rel="stylesheet" href="global.css" />
+</head>
+<body>
+  <my-counter count="1"></my-counter>
+  <heart-module src="counter.heartml"></heart-module>
+</body>
+
+  </script>
+
+  <script webc:keep type="sample/html" filename="counter.heartml">
+
+<button host-event="click#decrement">-</button>
+<strong host-effect="@textContent=.count" style="display: inline-block; width: 4rem">0</strong>
+<button host-event="click#increment">+</button>
+
+<style>
+  :host { display: block; text-align: center; font-size: 200%; }
+  button { font-size: inherit; }
+</style>
+
+<script type="module">
+  class Counter extends HeartElement {
+    static template = import.meta.document
+    static properties={"count": {}}
+    static declarativeEffects={"shadow": true }
+    static declarativeEvents=["click"]
+
+    start() { this.count = 0 }
+    increment(event) { this.count++ }
+    decrement(event) { this.count-- }
+  }
+  Counter.define("my-counter")
+&lt;/script>
+
+  </script>
+
+  <script webc:keep type="sample/css" filename="global.css">
+
+body {
+  font-family: sans-serif;
+  font-size: 110%;
+}
+
+p {
+  font-size: 150%;
+  font-weight: bold;
+}
+
+input {
+  font: inherit;
+}
+
+  </script>
+</playground-ide>
+
 <my-component @prop="neeet"></my-component>

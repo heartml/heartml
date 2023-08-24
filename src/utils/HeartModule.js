@@ -1,4 +1,4 @@
-class HeartModules extends HTMLElement {
+class HeartModule extends HTMLElement {
   static modules = {}
 
   static import(unqualifiedURL, triggeringElement = null) {
@@ -51,6 +51,6 @@ export default __import_meta_document
   }
 }
 
-customElements.define("import-heart", HeartModules)
+customElements.define("heart-module", HeartModule)
 
-export default HeartModules
+export default HeartModule
