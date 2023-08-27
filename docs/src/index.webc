@@ -2,15 +2,15 @@
 layout: "default.webc"
 ---
 
-<h1 style="text-align:center">Heartml: Postmodern HTML. 🍭<br/>Web components with the hots for declarative markup. 😻</h1>
+<h1 style="text-align:center"><span style="color:#FF4551">Heartml:</span> Postmodern HTML. 🍭<br/>Web components with the hots for declarative markup. 😻</h1>
 
 <template webc:type="11ty" 11ty:type="md">
 
-<abbr title="Hyper Expressive and Reactive Template Modules Library">Heartml</abbr> is the web’s most **versatile** new component format, centered around present **open standards** and running in the direction of future ones.
+<abbr title="Hyper Expressive and Reactive Template Modules Library">Heartml</abbr> is the web’s most **versatile** new component format, centered around present-day **open standards** and running in the direction of future ones.
 
 You can define Heartml components entirely in JavaScript, in declarative Single-File Component **HTML module** files, or simply embedded directly in any HTML page.
 
-Write **split components** (all markup is renderer server-side, then upgraded with client-side behavior), **hybrid components** (markup from server, but shipping with a template so new components can be initialized on the client), or even **client-side only** components.
+Write **split components** (all markup is rendered server-side, then upgraded with client-side behavior), **hybrid components** (markup from server, but shipping with a template so new components can be initialized on the client), or even **client-side only** components.
 
 ★ **Callee** can't wait to explain how everything works! <img src="/images/Callee - cutout.png" alt="Callee" style="width:100px; margin-inline-start: 0.5em; vertical-align: -1em" /> {style="text-align:right"}
 
@@ -18,25 +18,50 @@ Write **split components** (all markup is renderer server-side, then upgraded wi
 
 ### Every Component Everywhere All at Once
 
-* Server-agnostic: Ruby renderer today, JavaScript coming soon
+* Server-agnostic: Ruby today, JavaScript coming soon, other renderers entirely possible!
 * But you can even integrate with other server renderers like WebC!
-* Use Heartml all by itself or alongside other web components built with Lit, etc.!
-* Heartml works everywhere! Use Heartml in all kinds of stacks, from WordPress to Ruby on Rails to Eleventy
+* Use Heartml all by itself or alongside other web components built with vanilla JS, Lit, Stencil, etc.
+* Heartml works everywhere! Use Heartml in all kinds of stacks, from WordPress to Ruby on Rails to Eleventy.
 
 ### Choose Your Flavor
 
-* Many features work in light DOM and in shadow DOM, often simultaneously
-* Signals provides for coordinated client state across components
-* SFC Heartml modules can be loaded directly in buildless environments or bundled via esbuild
+* Most features work in light DOM _and_ in shadow DOM, sometimes simultaneously!
+* Declarative Shadow DOM-aware and Turbo-compatible.
+* Signals (a minimalist [bundled dependency](https://github.com/preactjs/signals)) provides for fine-grained reactivity and coordinated client state across components.
+* Heartml modules can be loaded directly in buildless environments or bundled via esbuild.
 
 ### Extensible by Design
 
-* 98% of functionality is located in plugins, rather than base class (and you could even write your own base class if you really want to!)
-* Write your own plugins! “Composable” behaviors components can opt-into via either JavaScript or declarative HTML!
-* Package provides unbundled ESM, or install pre-bundled/minified CDN-friendly version
-* Tiny ~5KB compressed size
+* 98% of functionality is located in plugins, rather than the base class (and you can write your own base class if you really want to!).
+* Write your own plugins! They're “composable” behaviors components can opt-into via both JavaScript and declarative HTML.
+* Package provides unbundled ESM, or install pre-bundled/minified CDN-friendly version.
+* Tiny ~5KB compressed size—even when including Signals. _Did we mention this thing is tiny?_ 😆
 
 ★ **Callee** has a few demos she's like to show you! <img src="/images/Callee - cutout.png" alt="Callee" style="width:100px; margin-inline-start: 0.5em; vertical-align: -1em" /> {style="text-align:right"}
+
+## How to Install
+
+From a CDN:
+
+```html
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/heartml@0.13.0"></script>
+</head>
+```
+
+From a package:
+
+```shell
+npm i heartml
+```
+
+```js
+import { HeartElement } from "heartml"
+```
+
+## Heartml in Action
+
+You want demos? We've got demos.
 
 </template>
 
@@ -260,6 +285,88 @@ When you're ready to write a Single-File Component that's not simply JavaScript,
 p {
   font-size: 150%;
   font-weight: bold;
+}
+
+  </script>
+</playground-ide>
+
+
+<playground-ide>
+  <script webc:keep type="sample/html" filename="index.html">
+
+<head>
+  <script type="module" src="./component.js">&lt;/script>
+  <link rel="stylesheet" href="defaults.css" />
+</head>
+<body>
+  <ready-to-party confetti-colors="#7ef2ae #FF4551">
+    <p style="justify-content: center; height: 25vh; display: flex">
+      <button host-event="click#party" style="font: inherit">
+        Party Time! 🎊
+      </button>
+    </p>
+  </ready-to-party>
+</body>
+
+  </script>
+
+  <script webc:keep type="sample/js" filename="component.js">
+
+import { HeartElement } from "heartml"
+import "./confetti-plugin.js"
+
+class MyComponent extends HeartElement {
+  static declarativeEvents = ["click"]
+
+  static confetti = {
+    colors: ["purple", "blue"],
+    seconds: 2
+  }
+
+  static {
+    this.define("ready-to-party")
+  }
+
+  party() {
+    this.releaseConfetti()
+  }
+}
+
+  </script>
+
+  <script webc:keep type="sample/js" filename="confetti-plugin.js">
+
+import Heartml from "heartml"
+import confetti from "canvas-confetti"
+
+Heartml.plugins.confetti = {
+  instance(element) {
+    element.releaseConfetti = function() {
+      const colors = this.getAttribute("confetti-colors")?.split(" ") || this.constructor.confetti.colors
+      const duration = Date.now() + (this.constructor.confetti.seconds * 1000);
+
+      (function frame() {
+        confetti({
+          particleCount: 2,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+          colors: colors
+        });
+        confetti({
+          particleCount: 2,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+          colors: colors
+        });
+  
+        if (Date.now() < duration) {
+          requestAnimationFrame(frame);
+        }
+      }());
+    }
+  }
 }
 
   </script>

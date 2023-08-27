@@ -50,6 +50,18 @@ abbr {
   text-decoration-thickness: 2px;
 }
 
+code {
+  color: #7ef2ae;
+  font: inherit;
+  font-family: ui-monospace, monospace;
+}
+
+pre {
+  border: 1px solid #F56174;
+  border-radius: 16px;
+  padding: 1rem;
+}
+
 playground-ide {
   height: 400px;
   margin-block: 1.25em;
@@ -65,7 +77,7 @@ playground-ide {
   --playground-highlight-color: #FFCC66;
   --playground-code-font-size: 16px;
   --playground-code-font-family: ui-monospace, monospace;
-  --playground-code-padding: 0.5rem;
+  --playground-code-padding: .75rem;
 
   /* Syntax Highlighting */
 

@@ -16,6 +16,7 @@
       font-size: 150%;
       background: #212733;
       color: #ddd7ca;
+      padding: .75rem;
     }
 
     input {
