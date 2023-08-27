@@ -13,6 +13,19 @@
     <style @raw="getBundle('css')" webc:keep></style>
 		<script @raw="getBundle('js')" webc:keep></script>
     <script webc:keep type="module" src="/js/playground.js"></script>
+
+    <script type="module">
+      // We need to set box-sizing to border-box or the extra padding will show as cut off on the bottom!
+      customElements.whenDefined("playground-ide").then(() => {
+        setTimeout(() => {
+          for (const playground of document.querySelectorAll("playground-ide")) {
+            try {
+            playground.shadowRoot.querySelector("playground-file-editor").shadowRoot.querySelector("playground-code-editor").shadowRoot.querySelector(".CodeMirror").style.boxSizing = "border-box"
+            } catch {}
+          }
+        }, 1000) // We'll be generous. If it STILL didn't work in 1 second, oh well!
+      })
+    </script>
 	</head>
 	<body>
     <header style="text-align:center">

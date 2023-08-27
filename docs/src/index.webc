@@ -2,17 +2,22 @@
 layout: "default.webc"
 ---
 
-<h1 style="text-align:center"><span style="color:#FF4551">Heartml:</span> Postmodern HTML. 🍭<br/>Web components with the hots for declarative markup. 😻</h1>
+<h1 style="text-align:center">
+  <span style="color:#FF4551">H</span>ear<span style="color:#FF4551">tml</span>:
+  Postmodern HTML. 🍭<br/>Web components with the hots for declarative markup. 😻
+</h1>
 
 <template webc:type="11ty" 11ty:type="md">
 
-<abbr title="Hyper Expressive and Reactive Template Modules Library">Heartml</abbr> is the web’s most **versatile** new component format, centered around present-day **open standards** and running in the direction of future ones.
+<abbr title="Hyper Expressive and Reactive Templated Modules Library">Heartml</abbr> is the web’s most **versatile** new component format, centered around present-day **open standards** and running in the direction of future ones.
 
-You can define Heartml components entirely in JavaScript, in declarative Single-File Component **HTML module** files, or simply embedded directly in any HTML page.
+You can define Heartml components entirely in JavaScript, in declarative Single-File Component **HTML module** files, or simply embedded directly in any HTML page. Build steps completely optional!
 
-Write **split components** (all markup is rendered server-side, then upgraded with client-side behavior), **hybrid components** (markup from server, but shipping with a template so new components can be initialized on the client), or even **client-side only** components.
+Write **split components** (all markup is rendered server-side, then upgraded with client-side behavior), **hybrid components** (markup from server, but shipping with a template so new components can be initialized on the client), or **client-side only** components—you decide!
 
-★ **Callee** can't wait to explain how everything works! <img src="/images/Callee - cutout.png" alt="Callee" style="width:100px; margin-inline-start: 0.5em; vertical-align: -1em" /> {style="text-align:right"}
+Forget everything you know about web components and fall in love all over again.
+
+**♥︎**{style="color:#FF4551"} **Callee** can't wait to explain how everything works! <img src="/images/Callee - cutout.png" alt="Callee" style="width:100px; margin-inline-start: 0.5em; vertical-align: -1em" /> {style="text-align:right"}
 
 ## Features! So Many Features!
 
@@ -37,7 +42,7 @@ Write **split components** (all markup is rendered server-side, then upgraded wi
 * Package provides unbundled ESM, or install pre-bundled/minified CDN-friendly version.
 * Tiny ~5KB compressed size—even when including Signals. _Did we mention this thing is tiny?_ 😆
 
-★ **Callee** has a few demos she's like to show you! <img src="/images/Callee - cutout.png" alt="Callee" style="width:100px; margin-inline-start: 0.5em; vertical-align: -1em" /> {style="text-align:right"}
+**♥︎**{style="color:#FF4551"} **Callee** has a few demos she'd like to show you! <img src="/images/Callee - cutout.png" alt="Callee" style="width:100px; margin-inline-start: 0.5em; vertical-align: -1em" /> {style="text-align:right"}
 
 ## How to Install
 
@@ -61,7 +66,7 @@ import { HeartElement } from "heartml"
 
 ## Heartml in Action
 
-You want demos? We've got demos.
+**♥︎**{style="color:#FF4551"} Behold the power of custom elements! <img src="/images/Callee - cutout.png" alt="Callee" style="width:100px; margin-inline-start: 0.5em; vertical-align: -1em" /> {style="text-align:center"}
 
 </template>
 
@@ -319,7 +324,6 @@ class MyComponent extends HeartElement {
   static declarativeEvents = ["click"]
 
   static confetti = {
-    colors: ["purple", "blue"],
     seconds: 2
   }
 
@@ -342,7 +346,7 @@ import confetti from "canvas-confetti"
 Heartml.plugins.confetti = {
   instance(element) {
     element.releaseConfetti = function() {
-      const colors = this.getAttribute("confetti-colors")?.split(" ") || this.constructor.confetti.colors
+      const colors = this.getAttribute("confetti-colors")?.split(" ") || this.constructor.confetti.colors || ["#0000FF", "FF0000"]
       const duration = Date.now() + (this.constructor.confetti.seconds * 1000);
 
       (function frame() {
