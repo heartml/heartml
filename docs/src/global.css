@@ -1,0 +1,109 @@
+body {
+  background: #1B1E28;
+  font-family: "Red Hat Text", sans-serif;
+  color: #DDD7CA;
+  line-height: 1.66;
+}
+
+h1, h2 {
+  color: #F56174;
+  padding-bottom: .5em;
+  border-bottom: 5px solid #FF4551;
+  margin-block-start: 2em;
+  margin-block-end: 1em;
+  line-height: 1.3;
+}
+
+h1:first-child {
+  margin-block-start: 0;
+}
+
+h3 {
+  color: #FFCC66;
+  margin-block-start: 2em;
+  line-height: 1.3;
+}
+
+a {
+  color: #93FEC0;
+}
+
+strong {
+  color: #7dbbd1;
+}
+
+main {
+  font-size: clamp(1.11rem, 2vw, 1.69rem);
+  max-width: 76rem;
+  margin-inline: auto;
+  background: #212733;
+  padding: 5vw;
+  border-radius: 3px;
+}
+
+abbr {
+  cursor: help;
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  text-decoration-color: #ff75bc;
+  text-underline-offset: .2em;
+  text-decoration-thickness: 2px;
+}
+
+playground-ide {
+  height: 400px;
+  margin-block: 1.25em;
+  border-radius: 16px;
+  overflow:hidden;
+
+  --playground-preview-width: 40%;
+  --playground-border: 1px solid #F56174;
+  --playground-tab-bar-background: #212733;
+  --playground-tab-bar-foreground-color: #ddd7ca;
+  --playground-preview-toolbar-background: #212733;
+  --playground-preview-toolbar-foreground-color: #7dbbd1;
+  --playground-highlight-color: #FFCC66;
+  --playground-code-font-size: 16px;
+  --playground-code-font-family: ui-monospace, monospace;
+  --playground-code-padding: 0.5rem;
+
+  /* Syntax Highlighting */
+
+  --playground-code-background: #212733;
+  --playground-code-default-color: #ddd7ca;
+  --playground-code-keyword-color: #ff9473;
+  --playground-code-atom-color: #ff9473;
+  --playground-code-number-color: #ff9473;
+  --playground-code-def-color: #e6e6e6;
+  --playground-code-variable-color: #e6e6e6;
+  --playground-code-property-color: #ffa7d3;
+  --playground-code-operator-color: #ff75bc;
+  --playground-code-variable-2-color: #ddd7ca;
+  --playground-code-variable-3-color: #ddd7ca;
+  --playground-code-type-color: #7dbbd1;
+  --playground-code-comment-color: #5c6773;
+  --playground-code-string-color: #7ef2ae;
+  --playground-code-string-2-color: #ddd7ca;
+  --playground-code-meta-color: #ddd7ca;
+  --playground-code-qualifier-color: #ddd7ca;
+  --playground-code-builtin-color: #ddd7ca;
+  --playground-code-tag-color: #F56174;
+  --playground-code-attribute-color: #ff9473;
+  --playground-code-callee-color: #7dbbd1;
+  --playground-bar-height: 48px;
+}
+
+playground-ide::part(preview) {
+  background: #212733;
+}
+
+@media (max-width: 700px) {
+  playground-ide {
+    height: auto;
+    flex-direction: column;
+    --playground-preview-width: 100%;
+  }
+  playground-ide::part(editor) {
+    height: 350px;
+  }
+}

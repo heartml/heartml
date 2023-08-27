@@ -121,7 +121,7 @@ export const properties = {
     if (!klass.observedAttributes) klass.observedAttributes = []
 
     for (const [key, value] of Object.entries(klass.properties)) {
-      if (!value.computed)
+      if (!value.memoize)
         klass.observedAttributes.push(value.attribute || key)
     }
   },
@@ -129,8 +129,8 @@ export const properties = {
     element.reactiveAttributes = {}
 
     for (const [key, value] of Object.entries(element.constructor.properties || {})) {
-      if (value.computed) {
-        const computedSignal = computed(() => element[`${key}Computed`])
+      if (value.memoize) {
+        const computedSignal = computed(() => element[`${key}Memoizing`]?.())
         Object.defineProperty(element, key, {
           get() {
             return computedSignal.value

@@ -3,9 +3,13 @@ const markdownItAttrs = require("markdown-it-attrs");
 
 module.exports = function(eleventyConfig) {
 	eleventyConfig.addPlugin(pluginWebc);
-  eleventyConfig.amendLibrary("md", mdLib => mdLib.use(markdownItAttrs));
+  eleventyConfig.amendLibrary("md", mdLib => {
+    mdLib.set({ typographer: true })
+    mdLib.use(markdownItAttrs)
+  });
 
-  eleventyConfig.addPassthroughCopy("src/js");
+  eleventyConfig.addPassthroughCopy("src/js")
+  eleventyConfig.addPassthroughCopy("src/images");
 
   return {
     dir: {

@@ -56,7 +56,7 @@
 
   <heart-ml
     tag="im-declarative"
-    properties='{ "label": {}, "capsLabel": { "computed": true }, "num": {} }'
+    properties='{ "label": {}, "capsLabel": { "memoize": true }, "num": {} }'
     declarative-effects='{ "light": true, "shadow": true }'
     declarative-events='["click"]'
   >
@@ -80,7 +80,7 @@
           this.num = 3
         }
 
-        get capsLabelComputed() {
+        capsLabelMemoizing() {
           this.hello()
           return this.label.toUpperCase()
         }

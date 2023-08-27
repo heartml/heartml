@@ -2,25 +2,50 @@
 layout: "default.webc"
 ---
 
-<h1>Heartml! ya yo</h1>
+<h1 style="text-align:center">Heartml: Postmodern HTML. 🍭<br/>Web components with the hots for declarative markup. 😻</h1>
 
 <template webc:type="11ty" 11ty:type="md">
 
-## I'm a heading {style="font-style:italic"}
+<abbr title="Hyper Expressive and Reactive Template Modules Library">Heartml</abbr> is the web’s most **versatile** new component format, centered around present **open standards** and running in the direction of future ones.
 
+You can define Heartml components entirely in JavaScript, in declarative Single-File Component **HTML module** files, or simply embedded directly in any HTML page.
 
+Write **split components** (all markup is renderer server-side, then upgraded with client-side behavior), **hybrid components** (markup from server, but shipping with a template so new components can be initialized on the client), or even **client-side only** components.
 
-**This is great**
+★ **Callee** can't wait to explain how everything works! <img src="/images/Callee - cutout.png" alt="Callee" style="width:100px; margin-inline-start: 0.5em; vertical-align: -1em" /> {style="text-align:right"}
+
+## Features! So Many Features!
+
+### Every Component Everywhere All at Once
+
+* Server-agnostic: Ruby renderer today, JavaScript coming soon
+* But you can even integrate with other server renderers like WebC!
+* Use Heartml all by itself or alongside other web components built with Lit, etc.!
+* Heartml works everywhere! Use Heartml in all kinds of stacks, from WordPress to Ruby on Rails to Eleventy
+
+### Choose Your Flavor
+
+* Many features work in light DOM and in shadow DOM, often simultaneously
+* Signals provides for coordinated client state across components
+* SFC Heartml modules can be loaded directly in buildless environments or bundled via esbuild
+
+### Extensible by Design
+
+* 98% of functionality is located in plugins, rather than base class (and you could even write your own base class if you really want to!)
+* Write your own plugins! “Composable” behaviors components can opt-into via either JavaScript or declarative HTML!
+* Package provides unbundled ESM, or install pre-bundled/minified CDN-friendly version
+* Tiny ~5KB compressed size
+
+★ **Callee** has a few demos she's like to show you! <img src="/images/Callee - cutout.png" alt="Callee" style="width:100px; margin-inline-start: 0.5em; vertical-align: -1em" /> {style="text-align:right"}
 
 </template>
 
 <playground-ide>
   <script webc:keep type="sample/html" filename="index.html">
 
-<!doctype html>
 <head>
   <script type="module" src="./component.js">&lt;/script>
-  <link rel="stylesheet" href="global.css" />
+  <link rel="stylesheet" href="defaults.css" />
 </head>
 <body>
   <my-component count="10">
@@ -64,23 +89,11 @@ class MyComponent extends HeartElement {
 }
 
   </script>
-
-  <script webc:keep type="sample/css" filename="global.css">
-
-body {
-  font-family: sans-serif;
-  font-size: 150%;
-}
-
-  </script>
 </playground-ide>
-
-<p>whoa</p>
 
 <playground-ide>
   <script webc:keep type="sample/html" filename="index.html">
 
-<!doctype html>
 <head>
   <script type="module" src="./component.js">&lt;/script>
   <link rel="stylesheet" href="global.css" />
@@ -127,18 +140,11 @@ class MyComponent extends HeartElement {
 
   <script webc:keep type="sample/css" filename="global.css">
 
-body {
-  font-family: sans-serif;
-  font-size: 110%;
-}
+@import "defaults.css";
 
 p {
   font-size: 150%;
   font-weight: bold;
-}
-
-input {
-  font: inherit;
 }
 
   </script>
@@ -148,9 +154,8 @@ input {
 <playground-ide>
   <script webc:keep type="sample/html" filename="index.html">
 
-<!doctype html>
 <head>
-  <script src="https://cdn.jsdelivr.net/npm/heartml@0.12.0">&lt;/script>
+  <script src="https://cdn.jsdelivr.net/npm/heartml@0.13.0">&lt;/script>
   <link rel="stylesheet" href="global.css" />
 </head>
 <body>
@@ -186,33 +191,30 @@ input {
 
   <script webc:keep type="sample/css" filename="global.css">
 
-body {
-  font-family: sans-serif;
-  font-size: 110%;
-}
+@import "defaults.css";
 
 p {
   font-size: 150%;
   font-weight: bold;
 }
 
-input {
-  font: inherit;
-}
-
   </script>
 </playground-ide>
 
 
+<template webc:type="11ty" 11ty:type="md">
 
-<h2>Heartml Module Files</h2>
+### Heartml Module Files (SFCs)
+
+When you're ready to write a Single-File Component that's not simply JavaScript, here comes `.heartml`.
+
+</template>
 
 <playground-ide>
   <script webc:keep type="sample/html" filename="index.html">
 
-<!doctype html>
 <head>
-  <script src="https://cdn.jsdelivr.net/npm/heartml@0.12.0">&lt;/script>
+  <script src="https://cdn.jsdelivr.net/npm/heartml@0.13.0">&lt;/script>
   <link rel="stylesheet" href="global.css" />
 </head>
 <body>
@@ -226,8 +228,7 @@ input {
 
 <script type="module">
   class Counter extends HeartElement {
-    static template = import.meta.document.querySelector("template").content
-    static styles = import.meta.document.querySelector("style")
+    static template = import.meta.document
     static properties = { count: {} }
     static declarativeEffects = { shadow: true }
     static declarativeEvents = ["click"]
@@ -254,18 +255,11 @@ input {
 
   <script webc:keep type="sample/css" filename="global.css">
 
-body {
-  font-family: sans-serif;
-  font-size: 110%;
-}
+@import "defaults.css";
 
 p {
   font-size: 150%;
   font-weight: bold;
-}
-
-input {
-  font: inherit;
 }
 
   </script>

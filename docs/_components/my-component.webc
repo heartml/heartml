@@ -7,4 +7,8 @@
   :host:defined {
     color: rebeccapurple;
   }
+
+  p {
+    color: yellowgreen;
+  }
   </style>

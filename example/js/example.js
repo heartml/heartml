@@ -14,7 +14,7 @@ export class TestMe extends HeartElement {
     this.properties = {
       foo: {},
       baR: {attribute: "ba-r"},
-      baz: {computed: true}
+      baz: {memoize: true}
     }
 
     this.declarativeEffects = { light: true, shadow: true }
@@ -71,7 +71,7 @@ export class TestMe extends HeartElement {
     }
   }
 
-  get bazComputed() {
+  bazMemoizing() {
     return this.baR.length
   }
 

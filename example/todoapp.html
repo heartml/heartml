@@ -141,8 +141,8 @@ logic.
   tag="todo-list"
   properties='{
     "todosState": { "attribute": "todos-state" },
-    "completedCount": { "computed": true },
-    "remainingCount": { "computed": true }
+    "completedCount": { "memoize": true },
+    "remainingCount": { "memoize": true }
   }'
   declarative-effects='{ "light": true, "shadow": true }'
   declarative-events='["click"]'
@@ -161,11 +161,11 @@ logic.
         this.todosState = []
       }
 
-      get completedCountComputed() {
+      completedCountMemoizing() {
         return this.todosState.length - this.remainingItems.length
       }
 
-      get remainingCountComputed() {
+      remainingCountMemoizing() {
         return this.todosState.length - this.completedItems.length
       }
 
