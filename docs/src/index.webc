@@ -66,7 +66,7 @@ import { HeartElement } from "heartml"
 
 ## Heartml in Action
 
-**♥︎**{style="color:#FF4551"} Behold the power of custom elements! <img src="/images/Callee - cutout.png" alt="Callee" style="width:100px; margin-inline-start: 0.5em; vertical-align: -1em" /> {style="text-align:center"}
+**♥︎**{style="color:#FF4551"} Wee! Let's try out some custom elements! <img src="/images/Callee - cutout.png" alt="Callee" style="width:100px; margin-inline-start: 0.5em; vertical-align: -1em" /> {style="text-align:center"}
 
 </template>
 
@@ -126,14 +126,14 @@ class MyComponent extends HeartElement {
 
 <head>
   <script type="module" src="./component.js">&lt;/script>
-  <link rel="stylesheet" href="global.css" />
+  <link rel="stylesheet" href="defaults.css" />
 </head>
 <body>
-  <name-change name="Jared White">
+  <name-change name="Callee the Canine Coder">
     <p host-effect="@textContent = .name">x</p>
     
     <label>Rename:
-    <input type="text" host-effect="@value = .name" host-event="input#changeName" />
+    <input type="text" host-effect="@value = .name" host-event="input#changeName" style="width:15em" />
     </label>
   </name-change>
 </body>
@@ -168,16 +168,6 @@ class MyComponent extends HeartElement {
 
   </script>
 
-  <script webc:keep type="sample/css" filename="global.css">
-
-@import "defaults.css";
-
-p {
-  font-size: 150%;
-  font-weight: bold;
-}
-
-  </script>
 </playground-ide>
 
 
@@ -186,7 +176,7 @@ p {
 
 <head>
   <script src="https://cdn.jsdelivr.net/npm/heartml@0.13.0">&lt;/script>
-  <link rel="stylesheet" href="global.css" />
+  <link rel="stylesheet" href="defaults.css" />
 </head>
 <body>
   <name-change>
@@ -219,16 +209,6 @@ p {
 
   </script>
 
-  <script webc:keep type="sample/css" filename="global.css">
-
-@import "defaults.css";
-
-p {
-  font-size: 150%;
-  font-weight: bold;
-}
-
-  </script>
 </playground-ide>
 
 
@@ -245,7 +225,7 @@ When you're ready to write a Single-File Component that's not simply JavaScript,
 
 <head>
   <script src="https://cdn.jsdelivr.net/npm/heartml@0.13.0">&lt;/script>
-  <link rel="stylesheet" href="global.css" />
+  <link rel="stylesheet" href="defaults.css" />
 </head>
 <body>
   <my-counter count="1"></my-counter>
@@ -283,18 +263,15 @@ When you're ready to write a Single-File Component that's not simply JavaScript,
 
   </script>
 
-  <script webc:keep type="sample/css" filename="global.css">
-
-@import "defaults.css";
-
-p {
-  font-size: 150%;
-  font-weight: bold;
-}
-
-  </script>
 </playground-ide>
 
+<template webc:type="11ty" 11ty:type="md">
+
+  ### Write a Plugin
+  
+  Virtually all Heartml functionality is provided by plugins. Every static property on your class is checked to determine if it should activate a plugin. So writing your own is simply a matter of adding some code to the `Hearml.plugins` object, and using that key as a static property on your component class. This doubles as a configuration mechanism, and even works as pure JSON within declarative custom element attributes! (Any `kebob-case` plugin attribute gets converted to `camelCase` automatically.)
+  
+  </template>
 
 <playground-ide>
   <script webc:keep type="sample/html" filename="index.html">
@@ -374,6 +351,74 @@ Heartml.plugins.confetti = {
 }
 
   </script>
+</playground-ide>
+
+<template webc:type="11ty" 11ty:type="md">
+
+## Works Great with Design Systems…Like Shoelace!
+
+If it's a custom element, you're golden. Mix 'n' match however you like. Just keep an eye on your total bundle size. (But if you employ Islands Architecture and use tools like `<is-land>`…might not even matter!)
+
+
+**♥︎**{style="color:#FF4551"} **Callee** is so happy all these different component systems can work together! <img src="/images/Callee - cutout.png" alt="Callee" style="width:100px; margin-inline-start: 0.5em; vertical-align: -1em" /> {style="text-align:center"}
+
+</template>
+
+<playground-ide>
+  <script webc:keep type="sample/html" filename="index.html">
+
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.8.0/cdn/themes/dark.css" />
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.8.0/cdn/shoelace-autoloader.js">&lt;/script>
+  <script type="module" src="./component.js">&lt;/script>
+  <link rel="stylesheet" href="defaults.css" />
+</head>
+<body class="sl-theme-dark">
+  <name-change name="Callee the Component Critter">
+    <p host-effect="@textContent = .name">x</p>
+
+    <p><sl-input label="Rename:" host-effect="@value = .name" host-event="input#changeName"></sl-input></p>
+
+    <p><sl-button variant="success" host-event="click#popUpName">
+      <sl-icon slot="prefix" name="question-circle"></sl-icon> What's the Name?
+    </sl-button></p>
+  </name-change>
+</body>
+
+  </script>
+
+  <script webc:keep type="sample/js" filename="component.js">
+
+import { HeartElement } from "heartml"
+
+class MyComponent extends HeartElement {
+  static properties = {
+    name: {}
+  }
+
+  static declarativeEffects = { light: true }
+
+  static declarativeEvents = ["click", "input"]
+
+  static {
+    this.define("name-change")
+  }
+
+  start() {
+    this.name = ""
+  }
+
+  changeName(event) {
+    this.name = event.target.value
+  }
+
+  popUpName() {
+    alert(`My name is ${this.name}!`)
+  }
+}
+
+  </script>
+
 </playground-ide>
 
 <my-component @prop="neeet"></my-component>

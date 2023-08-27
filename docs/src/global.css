@@ -34,7 +34,7 @@ strong {
 
 main {
   font-size: clamp(1.11rem, 2vw, 1.69rem);
-  max-width: 76rem;
+  max-width: 75.5rem;
   margin-inline: auto;
   background: #212733;
   padding: 5vw;
@@ -60,6 +60,7 @@ pre {
   border: 1px solid #F56174;
   border-radius: 16px;
   padding: 1rem;
+  overflow: auto;
 }
 
 playground-ide {
@@ -110,12 +111,21 @@ playground-ide::part(preview) {
 }
 
 @media (max-width: 700px) {
+  pre {
+    font-size: 90%;
+  }
+
   playground-ide {
     height: auto;
     flex-direction: column;
     --playground-preview-width: 100%;
   }
+
   playground-ide::part(editor) {
     height: 350px;
+  }
+
+  playground-ide::part(preview) {
+    height: 240px;
   }
 }
