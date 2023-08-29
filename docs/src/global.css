@@ -1,20 +1,30 @@
 :root {
   --color-midnight: #1B1E28;
   --color-midnight-lighter: #212733;
+  --color-midnight-lighter-hover: #262d3d;
+  --color-red: #FF4551;
+  --color-red-lighter: #F56174;
+  --color-green: #93FEC0;
+  --color-cyan: #7dbbd1;
+  --color-pink: #ff75bc;
   --color-yellow: #FFCC66;
+  --color-orange: #ff9473;
+  --color-sand: #DDD7CA;
+
+  --font-family: "Red Hat Text", sans-serif;
 }
 
 body {
   background: var(--color-midnight);
-  font-family: "Red Hat Text", sans-serif;
-  color: #DDD7CA;
+  font-family: var(--font-family);
+  color: var(--color-sand);
   line-height: 1.66;
 }
 
 h1, h2 {
-  color: #F56174;
+  color: var(--color-red-lighter);
   padding-bottom: .5em;
-  border-bottom: 5px solid #FF4551;
+  border-bottom: 5px solid var(--color-red);
   margin-block-start: 2em;
   margin-block-end: 1em;
   line-height: 1.3;
@@ -31,11 +41,11 @@ h3 {
 }
 
 a {
-  color: #93FEC0;
+  color: var(--color-green);
 }
 
 strong {
-  color: #7dbbd1;
+  color: var(--color-cyan);
 }
 
 main {
@@ -52,7 +62,7 @@ abbr {
   cursor: help;
   text-decoration: underline;
   text-decoration-style: dashed;
-  text-decoration-color: #ff75bc;
+  text-decoration-color: var(--color-pink);
   text-underline-offset: .2em;
   text-decoration-thickness: 2px;
 }
@@ -64,7 +74,7 @@ code {
 }
 
 pre {
-  border: 1px solid #F56174;
+  border: 1px solid var(--color-red-lighter);
   border-radius: 16px;
   padding: 1rem;
   overflow: auto;
@@ -77,11 +87,11 @@ playground-ide {
   overflow:hidden;
 
   --playground-preview-width: 40%;
-  --playground-border: 1px solid #F56174;
+  --playground-border: 1px solid var(--color-red-lighter);
   --playground-tab-bar-background: var(--color-midnight-lighter);
-  --playground-tab-bar-foreground-color: #ddd7ca;
+  --playground-tab-bar-foreground-color: var(--color-sand);
   --playground-preview-toolbar-background: var(--color-midnight-lighter);
-  --playground-preview-toolbar-foreground-color: #7dbbd1;
+  --playground-preview-toolbar-foreground-color: var(--color-cyan);
   --playground-highlight-color: var(--color-yellow);
   --playground-code-font-size: 16px;
   --playground-code-font-family: ui-monospace, monospace;
@@ -90,31 +100,32 @@ playground-ide {
   /* Syntax Highlighting */
 
   --playground-code-background: var(--color-midnight-lighter);
-  --playground-code-default-color: #ddd7ca;
-  --playground-code-keyword-color: #ff9473;
-  --playground-code-atom-color: #ff9473;
-  --playground-code-number-color: #ff9473;
+  --playground-code-default-color: var(--color-sand);
+  --playground-code-keyword-color: var(--color-orange);
+  --playground-code-atom-color: var(--color-orange);
+  --playground-code-number-color: var(--color-orange);
   --playground-code-def-color: #e6e6e6;
   --playground-code-variable-color: #e6e6e6;
   --playground-code-property-color: #ffa7d3;
-  --playground-code-operator-color: #ff75bc;
-  --playground-code-variable-2-color: #ddd7ca;
-  --playground-code-variable-3-color: #ddd7ca;
-  --playground-code-type-color: #7dbbd1;
+  --playground-code-operator-color: var(--color-pink);
+  --playground-code-variable-2-color: var(--color-sand);
+  --playground-code-variable-3-color: var(--color-sand);
+  --playground-code-type-color: var(--color-cyan);
   --playground-code-comment-color: #5c6773;
   --playground-code-string-color: #7ef2ae;
-  --playground-code-string-2-color: #ddd7ca;
-  --playground-code-meta-color: #ddd7ca;
-  --playground-code-qualifier-color: #ddd7ca;
-  --playground-code-builtin-color: #ddd7ca;
-  --playground-code-tag-color: #F56174;
-  --playground-code-attribute-color: #ff9473;
-  --playground-code-callee-color: #7dbbd1;
+  --playground-code-string-2-color: var(--color-sand);
+  --playground-code-meta-color: var(--color-sand);
+  --playground-code-qualifier-color: var(--color-sand);
+  --playground-code-builtin-color: var(--color-sand);
+  --playground-code-tag-color: var(--color-red-lighter);
+  --playground-code-attribute-color: var(--color-orange);
+  --playground-code-callee-color: var(--color-cyan);
   --playground-bar-height: 48px;
 }
 
 playground-ide::part(preview) {
   background: var(--color-midnight-lighter);
+  font-family: var(--font-family);
 }
 
 @media (max-width: 700px) {
