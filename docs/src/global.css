@@ -1,5 +1,11 @@
+:root {
+  --color-midnight: #1B1E28;
+  --color-midnight-lighter: #212733;
+  --color-yellow: #FFCC66;
+}
+
 body {
-  background: #1B1E28;
+  background: var(--color-midnight);
   font-family: "Red Hat Text", sans-serif;
   color: #DDD7CA;
   line-height: 1.66;
@@ -19,7 +25,7 @@ h1:first-child {
 }
 
 h3 {
-  color: #FFCC66;
+  color: var(--color-yellow);
   margin-block-start: 2em;
   line-height: 1.3;
 }
@@ -36,9 +42,10 @@ main {
   font-size: clamp(1.11rem, 2vw, 1.69rem);
   max-width: 75.5rem;
   margin-inline: auto;
-  background: #212733;
+  background: var(--color-midnight-lighter);
   padding: 5vw;
   border-radius: 3px;
+  position: relative;
 }
 
 abbr {
@@ -71,18 +78,18 @@ playground-ide {
 
   --playground-preview-width: 40%;
   --playground-border: 1px solid #F56174;
-  --playground-tab-bar-background: #212733;
+  --playground-tab-bar-background: var(--color-midnight-lighter);
   --playground-tab-bar-foreground-color: #ddd7ca;
-  --playground-preview-toolbar-background: #212733;
+  --playground-preview-toolbar-background: var(--color-midnight-lighter);
   --playground-preview-toolbar-foreground-color: #7dbbd1;
-  --playground-highlight-color: #FFCC66;
+  --playground-highlight-color: var(--color-yellow);
   --playground-code-font-size: 16px;
   --playground-code-font-family: ui-monospace, monospace;
   --playground-code-padding: .75rem;
 
   /* Syntax Highlighting */
 
-  --playground-code-background: #212733;
+  --playground-code-background: var(--color-midnight-lighter);
   --playground-code-default-color: #ddd7ca;
   --playground-code-keyword-color: #ff9473;
   --playground-code-atom-color: #ff9473;
@@ -107,7 +114,7 @@ playground-ide {
 }
 
 playground-ide::part(preview) {
-  background: #212733;
+  background: var(--color-midnight-lighter);
 }
 
 @media (max-width: 700px) {

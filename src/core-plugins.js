@@ -22,6 +22,7 @@ export const html = (strAry, ...values) => {
 
 export const declarativeEffects = {
   connected(element) {
+    // TODO: make directives easy to add to via plugins!
     element.hostEffects = new HostEffects(element, {
       show,
       hide,

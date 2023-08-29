@@ -3,11 +3,13 @@
 	<head>
 		<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>WebC Example</title>
+		<title>Heartml: Postmodern HTML</title>
 
     <style webc:keep>
       @import url(https://fonts.bunny.net/css?family=red-hat-text:400,400i,700,700i);
     </style>
+    <link webc:keep rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.8.0/cdn/themes/dark.css" />
+    <script webc:keep type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.8.0/cdn/shoelace-autoloader.js"></script>
     <link rel="stylesheet" href="../global.css" />
 
     <style @raw="getBundle('css')" webc:keep></style>
@@ -16,18 +18,24 @@
 
     <script type="module">
       // We need to set box-sizing to border-box or the extra padding will show as cut off on the bottom!
-      customElements.whenDefined("playground-ide").then(() => {
+      customElements.whenDefined("playground-ide").then((klass) => {
+        Object.defineProperty(klass.prototype, "content", { get: function() {
+          console.log("I get it!")
+          const filename = this.shadowRoot.querySelector("playground-file-editor").filename
+          return this.config.files[filename].content
+        }})
+
         setTimeout(() => {
           for (const playground of document.querySelectorAll("playground-ide")) {
             try {
-            playground.shadowRoot.querySelector("playground-file-editor").shadowRoot.querySelector("playground-code-editor").shadowRoot.querySelector(".CodeMirror").style.boxSizing = "border-box"
+              playground.shadowRoot.querySelector("playground-file-editor").shadowRoot.querySelector("playground-code-editor").shadowRoot.querySelector(".CodeMirror").style.boxSizing = "border-box"
             } catch {}
           }
         }, 1000) // We'll be generous. If it STILL didn't work in 1 second, oh well!
       })
     </script>
 	</head>
-	<body>
+	<body class="sl-theme-dark">
     <header style="text-align:center">
       <img src="/images/Callee - cutout.png" alt="Callee" style="width:300px" />
 

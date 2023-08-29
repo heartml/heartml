@@ -70,7 +70,7 @@ import { HeartElement } from "heartml"
 
 </template>
 
-<playground-ide>
+<playground-ide id="simple-counter">
   <script webc:keep type="sample/html" filename="index.html">
 
 <head>
@@ -120,8 +120,9 @@ class MyComponent extends HeartElement {
 
   </script>
 </playground-ide>
+<copy-button from="simple-counter"></copy-button>
 
-<playground-ide>
+<playground-ide id="rename-callee">
   <script webc:keep type="sample/html" filename="index.html">
 
 <head>
@@ -169,9 +170,9 @@ class MyComponent extends HeartElement {
   </script>
 
 </playground-ide>
+<copy-button from="rename-callee"></copy-button>
 
-
-<playground-ide>
+<playground-ide id="phone-number-input">
   <script webc:keep type="sample/html" filename="index.html">
 
 <head>
@@ -210,7 +211,7 @@ class MyComponent extends HeartElement {
   </script>
 
 </playground-ide>
-
+<copy-button from="phone-number-input"></copy-button>
 
 <template webc:type="11ty" 11ty:type="md">
 
@@ -220,7 +221,7 @@ When you're ready to write a Single-File Component that's not simply JavaScript,
 
 </template>
 
-<playground-ide>
+<playground-ide id="heartml-module">
   <script webc:keep type="sample/html" filename="index.html">
 
 <head>
@@ -264,6 +265,7 @@ When you're ready to write a Single-File Component that's not simply JavaScript,
   </script>
 
 </playground-ide>
+<copy-button from="heartml-module"></copy-button>
 
 <template webc:type="11ty" 11ty:type="md">
 
@@ -273,7 +275,7 @@ When you're ready to write a Single-File Component that's not simply JavaScript,
   
   </template>
 
-<playground-ide>
+<playground-ide id="confetti-plugin">
   <script webc:keep type="sample/html" filename="index.html">
 
 <head>
@@ -352,6 +354,7 @@ Heartml.plugins.confetti = {
 
   </script>
 </playground-ide>
+<copy-button from="confetti-plugin"></copy-button>
 
 <template webc:type="11ty" 11ty:type="md">
 
@@ -364,7 +367,7 @@ If it's a custom element, you're golden. Mix 'n' match however you like. Just ke
 
 </template>
 
-<playground-ide>
+<playground-ide id="shoelace-example">
   <script webc:keep type="sample/html" filename="index.html">
 
 <head>
@@ -420,5 +423,4 @@ class MyComponent extends HeartElement {
   </script>
 
 </playground-ide>
-
-<my-component @prop="neeet"></my-component>
+<copy-button from="shoelace-example"></copy-button>
