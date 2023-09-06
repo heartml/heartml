@@ -6,6 +6,12 @@ import "../../src/DeclarativeHeartElement.js"
 import "../../src/utils/HeartModule.js"
 HeartElement.hoist()
 
+const { directives } = Heartml.plugins.declarativeEffects
+
+directives.checkedIfGreaterThan = (component, node, value, length) => {
+  node.checked = value.length > length
+}
+
 /**
  * Woweee!
  */
@@ -78,10 +84,6 @@ export class TestMe extends HeartElement {
   get childHello() {
     this._blahGoo ??= this.querySelector("blah-goo")
     return this._blahGoo.hello
-  }
-
-  get childHelloMaxLength() {
-    return this._blahGoo?.hello?.length > 10
   }
 }
 

@@ -4,47 +4,59 @@
  */
 
 /**
- * Set element `hidden` to false if value is true
+ * Set node `hidden` to false if value is true
  * 
- * @param {HostEffects} effects
- * @param {HTMLElement} el
+ * @param {HTMLElement} component
+ * @param {HTMLElement} node
  * @param {boolean} value
  */
-export const show = (effects, el, value) => {
-  el.hidden = !value
+export const show = (component, node, value) => {
+  node.hidden = !value
 }
 
 /**
- * Set element `hidden` to true if value is true
+ * Set node `hidden` to true if value is true
  * 
- * @param {HostEffects} effects
- * @param {HTMLElement} el
+ * @param {HTMLElement} component
+ * @param {HTMLElement} node
  * @param {boolean} value
  */
-export const hide = (effects, el, value) => {
-  el.hidden = !!value
+export const hide = (component, node, value) => {
+  node.hidden = !!value
 }
 
 /**
  * Toggle classes based on a key/value object
  * 
- * @param {HostEffects} effects
- * @param {HTMLElement} el
+ * @param {HTMLElement} component
+ * @param {HTMLElement} node
  * @param {Record<string, boolean>} obj
  */
-export const classMap = (effects, el, obj) => {
+export const classMap = (component, node, obj) => {
   Object.entries(obj).forEach(([k, v]) => {
-    el.classList.toggle(k, v)
+    node.classList.toggle(k, v)
   })
 }
 
 /**
  * Set inline styles based on a key/value object
  * 
- * @param {HostEffects} effects
- * @param {HTMLElement} el
+ * @param {HTMLElement} component
+ * @param {HTMLElement} node
  * @param {Record<string, boolean>} obj
  */
-export const styleMap = (effects, el, obj) => {
-  Object.assign(el.style, obj)
+export const styleMap = (component, node, obj) => {
+  Object.assign(node.style, obj)
+}
+
+/**
+ * Set an attribute value for the node
+ * 
+ * @param {HTMLElement} component
+ * @param {HTMLElement} node
+ * @param {string} name
+ * @param {string} value
+ */
+export const attribute = (component, node, name, value) => {
+  node.setAttribute(name, value)
 }

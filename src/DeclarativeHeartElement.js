@@ -1,3 +1,4 @@
+//@ts-check
 import Heartml, { HeartElement } from "./heartml.js"
 
 class DeclarativeHeartElement extends HTMLElement {
@@ -35,7 +36,9 @@ class DeclarativeHeartElement extends HTMLElement {
         return
       }
 
+      /** @type {HTMLTemplateElement} */
       const template = this.querySelector("template[data-html]")
+      /** @type {HTMLTemplateElement} */
       const stylesTemplate = this.querySelector("template[data-css]")
       if (template) newCE.template = template.content
       if (stylesTemplate) newCE.styles = stylesTemplate.content.querySelector("style")

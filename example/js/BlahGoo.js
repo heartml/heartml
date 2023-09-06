@@ -34,7 +34,6 @@ class BlahGoo extends HeartElement {
   }
 
   updateHello(e) {
-    console.info("UPODATING!")
     this.hello = e.target.value
   }
 }

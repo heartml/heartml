@@ -13,7 +13,7 @@
     <template shadowrootmode="open">
       <slot></slot>
 
-      <p>Shadow DOM! <output host-effect="@textContent=.foo">...</output></p>
+      <p>Shadow DOM! <output host-effect="@textContent=.foo; $attribute('aria-label', .foo)">...</output></p>
     </template>
     <output class="texty">SSR Output</output>
 
@@ -24,7 +24,7 @@
     ">?</p>
 
     <blah-goo hello="Howdy world!"></blah-goo>
-    <p>Parent bound! <span host-effect="@textContent = .childHello"></span> <input type="checkbox" host-effect="@checked = .childHelloMaxLength" /></p>
+    <p>Parent bound! <span host-effect="@textContent = .childHello"></span> <input type="checkbox" host-effect="$checkedIfGreaterThan(.childHello, 10)" /></p>
 
     <p>Length: <ui-label host-effect="@textContent = .baz">0</ui-label></p>
   </test-me>

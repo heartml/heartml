@@ -1,19 +1,22 @@
 //@ts-check
 import ReactiveProperty from "./ReactiveProperty.js"
 import HostEffects from "./HostEffects.js"
-import { show, hide, classMap, styleMap } from "./directives.js"
+import { show, hide, classMap, styleMap, attribute } from "./directives.js"
 import { signal, computed, effect, Signal } from "@preact/signals-core"
 
 export const css = (strAry, ...values) => {
-  const strings = strAry.flatMap((item, index) => [item, values[index]])
-  return Object.assign(document.createElement("style"), { textContent: strings.join("") })
+  // picked this `String.raw` trick up from:
+  // https://github.com/Tram-One/tram-lite/blob/main/src/TramLite.js
+  const strings = String.raw({ raw: strAry }, ...values)
+
+  return Object.assign(document.createElement("style"), { textContent: strings })
 }
 
 export const html = (strAry, ...values) => {
-  const strings = strAry.flatMap((item, index) => [item, values[index]])
+  const strings = String.raw({ raw: strAry }, ...values)
 
   var tmpl = new DocumentFragment()
-  const htmlFrag = `<body>${strings.join("")}</body>`
+  const htmlFrag = `<body>${strings}</body>`
   const fragment = new DOMParser().parseFromString(htmlFrag, 'text/html')
   tmpl.append(...fragment.body.childNodes)
 
@@ -21,14 +24,16 @@ export const html = (strAry, ...values) => {
 }
 
 export const declarativeEffects = {
+  directives: {
+    show,
+    hide,
+    classMap,
+    styleMap,
+    attribute
+  },
   connected(element) {
     // TODO: make directives easy to add to via plugins!
-    element.hostEffects = new HostEffects(element, {
-      show,
-      hide,
-      classMap,
-      styleMap
-    })
+    element.hostEffects = new HostEffects(element, this.directives)
 
     if (element.constructor.declarativeEffects.shadow) {
       element.hostEffects.processShadowRoot("host-lazy-effect")

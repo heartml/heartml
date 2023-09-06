@@ -17,14 +17,13 @@
     <script webc:keep type="module" src="/js/playground.js"></script>
 
     <script type="module">
-      // We need to set box-sizing to border-box or the extra padding will show as cut off on the bottom!
       customElements.whenDefined("playground-ide").then((klass) => {
         Object.defineProperty(klass.prototype, "content", { get: function() {
-          console.log("I get it!")
           const filename = this.shadowRoot.querySelector("playground-file-editor").filename
           return this.config.files[filename].content
         }})
-
+        
+        // We need to set box-sizing to border-box or the extra padding will show as cut off on the bottom!
         setTimeout(() => {
           for (const playground of document.querySelectorAll("playground-ide")) {
             try {
@@ -42,6 +41,13 @@
       <p><strong>Callee</strong> is excited you’re going to build some components!</p>
     </header>
     <main @raw="content"></main>
-    <my-component @prop="Hello World yall"></my-component>
+    
+    <footer>
+      <template webc:type="11ty" 11ty:type="md">
+        Heartml is open source, licensed MIT
+
+        “Callee” character created by Glorianna White
+      </template>
+    </footer>
   </body>
 </html>

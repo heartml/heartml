@@ -6,7 +6,7 @@ import { effect } from "@preact/signals-core"
  */
 
 /**
- * @typedef { Record<string, (host: HostEffects, element: HTMLElement, value: unknown) => void> | undefined } Directives
+ * @typedef { Record<string, (component: HTMLElement, node: HTMLElement, ...args: unknown[]) => void> | undefined } Directives
  */
 
 class HostEffects {
@@ -86,19 +86,10 @@ class HostEffects {
 
             if (this.directives && this.directives[directiveName.trim().substring(1)]) {
               this.effectDisposals.push(effect(() => {
-                const args = argStrs.map(argStr => {
-                  if (argStr === "@") {
-                    return node
-                  }
+                const args = argStrs.map(argStr => this.convertArgToValue(argStr, node))
 
-                  if (argStr.startsWith("'")) { // string literal
-                    return argStr.substring(1, argStr.length -1)
-                  }
-
-                  return this.element[argStr.substring(1)]
-                })
-
-                if (this.element["resumed"]) this.directives[directiveName.trim().substring(1)]?.(this, ...args)
+                // @ts-ignore
+                if (this.element["resumed"]) this.directives[directiveName.trim().substring(1)]?.(this.element, ...args)
               }))
             }
           } else {
@@ -108,17 +99,7 @@ class HostEffects {
             argStrs.unshift("@")
 
             this.effectDisposals.push(effect(() => {
-              const args = argStrs.map(argStr => {
-                if (argStr === "@") {
-                  return node
-                }
-
-                if (argStr.startsWith("'")) { // string literal
-                  return argStr.substring(1, argStr.length -1)
-                }
-
-                return this.element[argStr.substring(1)]
-              })
+              const args = argStrs.map(argStr => this.convertArgToValue(argStr, node))
 
               if (this.element["resumed"]) this.element[methodName.trim()]?.(...args)
             }))
@@ -126,6 +107,22 @@ class HostEffects {
         })
       }
     })
+  }
+
+  convertArgToValue(argStr, node) {
+    if (argStr === "@") {
+      return node
+    }
+
+    if (argStr.startsWith("'")) { // string literal
+      return argStr.substring(1, argStr.length -1)
+    }
+
+    if (argStr.match(/^[0-9]/)) {
+      return Number(argStr)
+    }
+
+    return this.element[argStr.substring(1)]
   }
 }
 
