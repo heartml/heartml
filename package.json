@@ -21,7 +21,9 @@
     "build": "rm -rf dist && npm run build:esm && npm run build:cdn",
     "build:esm": "esbuild src/heartml.js src/DeclarativeHeartElement.js src/utils/HeartModule.js --bundle --splitting --external:@preact/signals-core --chunk-names=heartml-shared-[hash] --outdir=dist --format=esm",
     "build:cdn": "esbuild src/heartml.cdn.js --bundle --outdir=dist --minify",
-    "release": "npm run build && npm publish",
+    "release:patch": "npm run build && npm version patch && npm publish && git push --follow-tags",
+    "release:minor": "npm run build && npm version minor && npm publish && git push --follow-tags",
+    "release:major": "npm run build && npm version major && npm publish && git push --follow-tags",
     "docs:dev": "npm run docs:frontend && cd docs && npx @11ty/eleventy --serve --port=4001",
     "docs:frontend": "cd docs && esbuild frontend/playground.js --bundle --minify --format=esm --outdir=src/js",
     "test": "echo \"Error: no test specified\" && exit 1"
