@@ -22,10 +22,10 @@ jobs:
         cache: 'npm'
 
     - name: Install packages
-      run: npm install
+      run: npm ci
 
     - name: Set up Playwright
-      run: npx playwright install
+      run: npx playwright install --with-deps
 
     - name: Run tests
       run: npm run test
