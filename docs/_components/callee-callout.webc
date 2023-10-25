@@ -12,7 +12,7 @@
 
 <aside :style="withAlign(centered)">
   <aside-text>
-    <strong style="color:#FF4551">♥︎</strong>
+    <strong style="color:#FF4551; font-size: 90%">♥</strong>
     <slot></slot>
   </aside-text>
   <img src="/images/Callee-grin.png" alt="Callee" style="width:100px; margin-inline-start: 0.5em; vertical-align: -1em" />
