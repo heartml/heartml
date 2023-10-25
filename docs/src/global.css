@@ -58,6 +58,11 @@ main {
   position: relative;
 }
 
+body > footer {
+  text-align: center;
+  padding-block: 2rem;
+}
+
 abbr {
   cursor: help;
   text-decoration: underline;
@@ -71,6 +76,7 @@ code {
   color: #7ef2ae;
   font: inherit;
   font-family: ui-monospace, monospace;
+  font-size: 90%;
 }
 
 pre {

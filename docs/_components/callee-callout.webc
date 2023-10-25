@@ -1,0 +1,19 @@
+<script webc:setup>
+  const styles = "display: flex; align-items: center; gap: 1rem;"
+  const withAlign = (input) => input != null ? `${styles} justify-content: center` : `${styles} justify-content: end`
+</script>
+
+<style>
+  aside-text {
+    text-align: center;
+    font-size: 90%;
+  }
+</style>
+
+<aside :style="withAlign(centered)">
+  <aside-text>
+    <strong style="color:#FF4551">♥︎</strong>
+    <slot></slot>
+  </aside-text>
+  <img src="/images/Callee-grin.png" alt="Callee" style="width:100px; margin-inline-start: 0.5em; vertical-align: -1em" />
+</aside>

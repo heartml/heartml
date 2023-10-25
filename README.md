@@ -1,5 +1,5 @@
 # Heartml ❤️
 
-## Postmodern HTML. Web components with the hots for declarative markup. 🤩
+## Postmodern HTML. 🍭 Web components that just can't get enough of that sweet declarative markup. 🥰
 
 **Under construction.** Check back soon!

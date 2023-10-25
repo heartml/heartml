@@ -4,45 +4,45 @@ layout: "default.webc"
 
 <h1 style="text-align:center">
   <span style="color:#FF4551">H</span>ear<span style="color:#FF4551">tml</span>:
-  Postmodern HTML. 🍭<br/>Web components with the hots for declarative markup. 😻
+  Postmodern HTML. 🍭<br/>Web components that just can't get enough of that sweet declarative markup. 🥰
 </h1>
 
 <template webc:type="11ty" 11ty:type="md">
 
 <abbr title="Hyper Expressive and Reactive Templated Modules Library">Heartml</abbr> is a **versatile** new web component format, centered around present-day **open standards** and running in the direction of future ones.
 
-You can define Heartml components entirely in JavaScript, in declarative Single-File Component **HTML module** files, or simply embedded directly in any HTML page. Build steps? Completely optional!
+You can define Heartml components entirely in JavaScript, in declarative Single-File Component **HTML module** files, or simply embedded directly in any HTML page. Build steps? _Completely optional!_
 
-Write **split components** (all markup is rendered server-side, then upgraded with client-side behavior), **hybrid components** (markup from server, but shipping with a template so new components can be initialized on the client), or **client-side only** components—you decide!
+Write **split components** (all markup is rendered server-side, then upgraded with client-side behavior), **hybrid components** (markup from server, but shipping with a template so new components can be initialized on the client), or **client-side only** components—_you decide!_
 
-Forget everything you know about web components…and fall in love with them all over again.
+Forget everything you know about web components…and _fall in love with them_ all over again.
 
-**♥︎**{style="color:#FF4551"} **Callee** can't wait to explain how everything works! <img src="/images/Callee - cutout.png" alt="Callee" style="width:100px; margin-inline-start: 0.5em; vertical-align: -1em" /> {style="text-align:right"}
+<callee-callout>**Callee** can't wait to explain how everything works!</callee-callout>
 
 ## Features! So Many Features!
 
 ### Every Component Everywhere All at Once
 
-* Server-agnostic: Ruby today, JavaScript coming soon. Other renderers entirely possible.
-* However, you can integrate with other server component formats such as WebC.
-* Use Heartml all by itself or alongside other web components built with vanilla JS, Lit, Stencil, etc.
-* Run Heartml everywhere! It works seamlessly in all kinds of stacks, from WordPress to Ruby on Rails to Eleventy.
+* **Server-agnostic**: emit SSR via Ruby today, JavaScript coming soon. Other renderers entirely possible.
+* Or you can integrate with existing **server component** formats such as [WebC](https://www.11ty.dev/docs/languages/webc/).
+* Use Heartml all by itself or **alongside other web components** built with vanilla JS, [Lit](https://lit.dev), [Stencil](https://stenciljs.com), etc.
+* **Run Heartml everywhere!** It works seamlessly in all kinds of stacks, from WordPress to Ruby on Rails to Eleventy.
 
 ### Choose Your Flavor
 
-* Most features work in light DOM _and_ in shadow DOM, sometimes simultaneously!
-* Declarative Shadow DOM-aware and compatible with HTML over the wire tooling such as Turbo.
-* Signals (a minimalist [bundled dependency](https://github.com/preactjs/signals)) provides for fine-grained reactivity and even coordinated client state across multiple components.
-* Heartml modules can be loaded directly in buildless environments or bundled up via a straightforward esbuild plugin.
+* Most features work in light DOM _and_ in shadow DOM, **sometimes simultaneously!**
+* Heartml is Declarative Shadow DOM-ready and **compatible with HTML over the wire** tooling such as Turbo.
+* Signals (a minimalist [bundled dependency](https://github.com/preactjs/signals)) provides for **fine-grained reactivity** and even coordinated client state across multiple components.
+* Heartml **modules** can be loaded directly in buildless environments or bundled up via a straightforward [esbuild plugin](https://github.com/whitefusionhq/esbuild-plugin-html-modules).
 
 ### Extensible by Design
 
-* 98% of functionality is located in plugins, rather than the base class. (And you can assemble your own base class if you really want to.)
-* Write your own plugins! They're “composable” behaviors components can opt into via both JavaScript and declarative HTML.
-* Package provides unbundled ESM, or install a pre-bundled/minified version right off a CDN.
-* All of Heartml fits in a tiny ~5KB compressed size—even including Signals. _Did we mention this thing is tiny?_ 😆
+* 98% of functionality is located in **plugins**, rather than the base class. (And you can assemble _your own base class_ if you really want to.)
+* **Write your own plugins!** They're “composable” behaviors which components can opt into via both JavaScript and declarative HTML.
+* Package provides unbundled ESM, or install a pre-bundled/minified version right off a **CDN**.
+* All of Heartml fits in a **tiny** ~5KB compressed size—even including Signals. _Did we mention this thing is tiny?_ 😆
 
-**♥︎**{style="color:#FF4551"} **Callee** has a few demos she'd like to show you! <img src="/images/Callee - cutout.png" alt="Callee" style="width:100px; margin-inline-start: 0.5em; vertical-align: -1em" /> {style="text-align:right"}
+<callee-callout>**Callee** has a few demos she'd like to show you!</callee-callout>
 
 ## How to Install
 
@@ -50,7 +50,7 @@ From a CDN:
 
 ```html
 <head>
-  <script src="https://cdn.jsdelivr.net/npm/heartml@0.13.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/heartml@0.14.0"></script>
 </head>
 ```
 
@@ -66,7 +66,9 @@ import { HeartElement } from "heartml"
 
 ## Heartml in Action
 
-**♥︎**{style="color:#FF4551"} Wee! Let's try out some custom elements! <img src="/images/Callee - cutout.png" alt="Callee" style="width:100px; margin-inline-start: 0.5em; vertical-align: -1em" /> {style="text-align:center"}
+<callee-callout centered>
+  Wee! Let's try out some custom elements!
+</callee-callout>
 
 </template>
 
@@ -188,6 +190,7 @@ class MyComponent extends HeartElement {
     </label>
   </name-change>
 
+  <!-- Ooo, declarative! -->
   <heart-ml tag="name-change"
     properties='{ "name": {} }'
     declarative-effects='{ "light": true }'
@@ -217,7 +220,7 @@ class MyComponent extends HeartElement {
 
 ### Heartml Module Files (SFCs)
 
-When you're ready to write a Single-File Component that's not simply JavaScript, here comes `.heartml`.
+When you're ready to write a **Single-File Component** that's not purely JavaScript, here comes `.heartml`. You can import and bundle `.heartml` files via [esbuild](https://github.com/whitefusionhq/esbuild-plugin-html-modules), or simply use the `<heart-module>` custom element to load them up in any "buildless" environment.
 
 </template>
 
@@ -271,7 +274,9 @@ When you're ready to write a Single-File Component that's not simply JavaScript,
 
   ### Write a Plugin
   
-  Virtually all Heartml functionality is provided by plugins. Every static property on your class is checked to determine if it should activate a plugin. So writing your own is simply a matter of adding some code to the `Hearml.plugins` object, and using that key as a static property on your component class. This doubles as a configuration mechanism, and even works as pure JSON within declarative custom element attributes! (Any `kebob-case` plugin attribute gets converted to `camelCase` automatically.)
+  Virtually all Heartml functionality is provided by plugins. Every static property on your class is checked to determine if it should activate a plugin. So writing your own is simply a matter of adding some code to the `Hearml.plugins` object, and using that key as a static property on your component class.
+  
+  This pattern doubles as a configuration mechanism, and even works as pure JSON within declarative custom element attributes! (Any `kebob-case` plugin attribute gets converted to `camelCase` automatically.)
   
   </template>
 
@@ -360,10 +365,9 @@ Heartml.plugins.confetti = {
 
 ## Works Great with Design Systems…Like Shoelace!
 
-If it's a custom element, you're golden. Mix 'n' match however you like. Just keep an eye on your total bundle size. (But if you employ Islands Architecture and use tools like `<is-land>`…might not even matter!)
+If it's another custom element, **you're golden**. Mix 'n' match however you like. Just keep an eye on your total bundle size. (But if you employ Islands Architecture and use tools like `<is-land>`…might not even matter!)
 
-
-**♥︎**{style="color:#FF4551"} **Callee** is so happy all these different component systems can work together! <img src="/images/Callee - cutout.png" alt="Callee" style="width:100px; margin-inline-start: 0.5em; vertical-align: -1em" /> {style="text-align:center"}
+<callee-callout centered>**Callee** is so happy all these different component systems can work together!</callee-callout>
 
 </template>
 
@@ -371,8 +375,8 @@ If it's a custom element, you're golden. Mix 'n' match however you like. Just ke
   <script webc:keep type="sample/html" filename="index.html">
 
 <head>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.8.0/cdn/themes/dark.css" />
-  <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.8.0/cdn/shoelace-autoloader.js">&lt;/script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.11.2/cdn/themes/dark.css" />
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.11.2/cdn/shoelace-autoloader.js">&lt;/script>
   <script type="module" src="./component.js">&lt;/script>
   <link rel="stylesheet" href="defaults.css" />
 </head>
