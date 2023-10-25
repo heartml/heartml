@@ -1,4 +1,4 @@
-<p><img src="https://heartml-docs.onrender.com/images/Callee.png" alt="Callee" style="width:139.33px" /></p>
+<p><img src="https://heartml-docs.onrender.com/images/Callee.png" alt="Callee" width="139" /></p>
 
 # Heartml ❤️
 
