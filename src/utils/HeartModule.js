@@ -46,11 +46,13 @@ export default __import_meta_document
     return importPromise
   }
 
+  static {
+    customElements.define("heart-module", HeartModule)
+  }
+
   connectedCallback() {
     this.constructor.import(this.getAttribute("src"), this)
   }
 }
-
-customElements.define("heart-module", HeartModule)
 
 export default HeartModule

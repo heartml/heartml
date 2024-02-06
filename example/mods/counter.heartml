@@ -1,7 +1,7 @@
 <template>
-  <button host-event="click#decrement">-</button>
+  <button host-event="click#decrement">Less -</button>
   <strong host-effect="@textContent=.count" style="display: inline-block; width: 4rem">0</strong>
-  <button host-event="click#increment">+</button>
+  <button host-event="click#increment">+ More</button>
 </template>
 
 <style>
@@ -10,7 +10,7 @@
 </style>
 
 <script type="module">
-  class Counter extends HeartElement {
+  class Counter extends (await customElements.whenDefined("heart-ml")) {
     static template = import.meta.document
     static properties={"count": {}}
     static declarativeEffects={"shadow": true }

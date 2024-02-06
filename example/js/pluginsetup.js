@@ -1,14 +1,14 @@
 //@ts-check
 import Heartml from "../../src/heartml.js"
 
-Heartml.plugins.confetti = {
+Heartml.plugins.dashed = {
   connected(element) {
-    const { confetti } = element.constructor
+    const { dashed } = element.constructor
     setTimeout(() => {
       Object.assign(element.style, {
         display: "block",
         padding: "1.25rem",
-        border: `8px dashed ${confetti}`
+        border: `8px dashed ${dashed}`
       })
     }, 700)
   }
