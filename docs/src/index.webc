@@ -186,7 +186,7 @@ class MyComponent extends HeartElement {
   <script webc:keep type="sample/html" filename="index.html">
 
 <head>
-  <script src="https://cdn.jsdelivr.net/npm/heartml@0.13.0">&lt;/script>
+  <script src="https://cdn.jsdelivr.net/npm/heartml@0.15.0">&lt;/script>
   <link rel="stylesheet" href="defaults.css" />
 </head>
 <body>
@@ -236,7 +236,7 @@ Moving a step up from DCEs, you can author `.heartml` files—a **Single-File Co
   <script webc:keep type="sample/html" filename="index.html">
 
 <head>
-  <script src="https://cdn.jsdelivr.net/npm/heartml@0.13.0">&lt;/script>
+  <script src="https://cdn.jsdelivr.net/npm/heartml@0.15.0">&lt;/script>
   <link rel="stylesheet" href="defaults.css" />
 </head>
 <body>
