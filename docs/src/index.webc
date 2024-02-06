@@ -3,7 +3,7 @@ layout: "default.webc"
 ---
 
 <h1 style="text-align:center">
-  <span style="color:#FF4551">H</span>ear<span style="color:#FF4551">tml</span>:
+  <span style="color: var(--color-red)"><u style="text-decoration-style: wavy; text-underline-offset: 0.2em">H</u>ear<u style="text-decoration-style: wavy; text-underline-offset: 0.2em">tml</u></span> is
   Postmodern HTML. 🍭<br/>Web components that just can't get enough of that sweet declarative markup. 🥰
 </h1>
 
