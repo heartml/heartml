@@ -1,5 +1,5 @@
 //@ts-check
-import Heartml, { HeartElement, css, html } from "./heartml.js"
+import Heartml, { HeartElement, css, html } from "../heartml.js"
 import { signal, computed, effect, batch, Signal } from "@preact/signals-core"
 
 class DeclarativeHeartElement extends HeartElement {

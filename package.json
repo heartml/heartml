@@ -8,8 +8,7 @@
   "main": "dist/heartml.cdn.js",
   "exports": {
     ".": "./dist/heartml.js",
-    "./DeclarativeHeartElement.js": "./dist/DeclarativeHeartElement.js",
-    "./utils/HeartModule.js": "./dist/utils/HeartModule.js",
+    "./utils/*": "./dist/utils/*",
     "./src/*": "./src/*"
   },
   "files": [

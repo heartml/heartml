@@ -1,7 +1,7 @@
 <template>
-  <button host-event="click#decrement">-</button>
+  <button host-event="click#decrement">Less -</button>
   <strong host-effect="@textContent=.count" style="display: inline-block; width: 4rem">0</strong>
-  <button host-event="click#increment">+</button>
+  <button host-event="click#increment">+ More</button>
 </template>
 
 <style>
