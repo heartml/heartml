@@ -4,7 +4,6 @@ import "./pluginsetup.js"
 import "./BlahGoo.js"
 import "../../src/DeclarativeHeartElement.js"
 import "../../src/utils/HeartModule.js"
-HeartElement.hoist()
 
 const { directives } = Heartml.plugins.declarativeEffects
 
@@ -86,6 +85,8 @@ export class TestMe extends HeartElement {
     return this._blahGoo.hello
   }
 }
+
+export { HeartElement }
 
 // setTimeout(() => {
 //   document.body.innerHTML = "done!"

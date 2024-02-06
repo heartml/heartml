@@ -22,16 +22,19 @@
 
 <h1>Counters</h1>
 
-<heart-ml tag="counter-widget" properties='{"count": {}}' declarative-effects='{"shadow": true }' declarative-events='["click"]'>
+<heart-ml tag-name="counter-widget" properties='{"count": {}}' declarative-effects='{"shadow": true }' declarative-events='["click"]'>
   <script type="module">
-    const globalCount = Heartml.signal(20)
+    const DeclarativeHeartElement = await customElements.whenDefined("heart-ml")
+    const { signal } = DeclarativeHeartElement
+    const globalCount = signal(20)
+
     class   CounterWidget 
-      extends   HeartElement { // test weird whitespace
+      extends   DeclarativeHeartElement { // test weird whitespace
       start() { this.count = globalCount }
       increment(event) { this.count++ }
       decrement(event) { this.count-- }
     }
-    CounterWidget.hoist()
+    CounterWidget.define()
   </script>
 </heart-ml>
 

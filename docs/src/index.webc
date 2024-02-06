@@ -191,13 +191,14 @@ class MyComponent extends HeartElement {
   </name-change>
 
   <!-- Ooo, declarative! -->
-  <heart-ml tag="name-change"
+  <heart-ml tag-name="name-change"
     properties='{ "name": {} }'
     declarative-effects='{ "light": true }'
     declarative-events='["input"]'
   >
     <script type="module">
-      class NameChange extends HeartElement {
+      const DeclarativeHeartElement = await customElements.whenDefined("heart-ml")
+      class NameChange extends DeclarativeHeartElement {
         start() {
           this.name = ""
         }
@@ -206,7 +207,7 @@ class MyComponent extends HeartElement {
           this.name = event.target.value.replace(/[a-zA-Z]*/g, "")
         }
       }
-      NameChange.hoist()
+      NameChange.define()
     &lt;/script>
   </heart-ml>
 </body>

@@ -55,7 +55,7 @@
   <hr />
 
   <heart-ml
-    tag="im-declarative"
+    tag-name="im-declarative"
     properties='{ "label": {}, "capsLabel": { "memoize": true }, "num": {} }'
     declarative-effects='{ "light": true, "shadow": true }'
     declarative-events='["click"]'
@@ -75,6 +75,7 @@
       </style>
     </template>
     <script type="module">
+      const HeartElement = await customElements.whenDefined("heart-ml")
       class ImDeclarative extends HeartElement {
         start() {
           this.num = 3
@@ -93,7 +94,7 @@
           alert("🎉")
         }
       }
-      ImDeclarative.hoist()
+      ImDeclarative.define()
     </script>
   </heart-ml>
 

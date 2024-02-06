@@ -10,7 +10,7 @@
 </style>
 
 <script type="module">
-  class Counter extends HeartElement {
+  class Counter extends (await customElements.whenDefined("heart-ml")) {
     static template = import.meta.document
     static properties={"count": {}}
     static declarativeEffects={"shadow": true }

@@ -138,7 +138,7 @@ logic.
 -->
 
 <heart-ml
-  tag="todo-list"
+  tag-name="todo-list"
   properties='{
     "todosState": { "attribute": "todos-state" },
     "completedCount": { "memoize": true },
@@ -156,7 +156,7 @@ logic.
   }'
 >
   <script type="module">
-    class TodoList extends HeartElement {
+    class TodoList extends (await customElements.whenDefined("heart-ml")) {
       start() {
         this.todosState = []
       }
@@ -191,12 +191,12 @@ logic.
       }
     }
 
-    TodoList.hoist()
+    TodoList.define()
   </script>
 </heart-ml>
 
 <heart-ml
-  tag="todo-item"
+  tag-name="todo-item"
   properties='{
     "itemid": {},
     "completed": {}
@@ -214,6 +214,8 @@ logic.
       <input type="checkbox" host-effect="@checked = .completed" host-event="change#check" />
       <slot host-effect="$styleMap(.checkedStyles)"></slot>
     </label>
+  </template>
+  <template data-css>
     <style>
       input {
         margin-inline-end: 1rem;
@@ -228,7 +230,7 @@ logic.
   </template>
 
   <script type="module">
-    class TodoItem extends HeartElement {
+    class TodoItem extends (await customElements.whenDefined("heart-ml")) {
       start() {
         this.itemid = 0
         /**
@@ -271,7 +273,7 @@ logic.
       }
     }
 
-    TodoItem.hoist()
+    TodoItem.define()
   </script>
 </heart-ml>
 
