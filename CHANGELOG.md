@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.15.0] - 2024-02-05
+
+- Refactor declarative custom elements using Promises (breaking syntax change)
+
 ## [0.14.0] - 2023-09-06
 
 - Allow new directives to be added, like plugins

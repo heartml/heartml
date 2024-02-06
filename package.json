@@ -18,7 +18,7 @@
   "scripts": {
     "dev": "esbuild example/js/example.js example/js/cdn-style-app.js --bundle --watch --servedir=example --outdir=example/js --serve=4000",
     "build": "rm -rf dist && npm run build:esm && npm run build:cdn",
-    "build:esm": "esbuild src/heartml.js src/DeclarativeHeartElement.js src/utils/HeartModule.js --bundle --splitting --external:@preact/signals-core --chunk-names=heartml-shared-[hash] --outdir=dist --format=esm",
+    "build:esm": "esbuild src/heartml.js src/utils/DeclarativeHeartElement.js src/utils/HeartModule.js --bundle --splitting --external:@preact/signals-core --chunk-names=heartml-shared-[hash] --outdir=dist --format=esm",
     "build:cdn": "esbuild src/heartml.cdn.js --bundle --outdir=dist --minify",
     "release:patch": "npm run build && npm version patch && npm publish && git push --follow-tags",
     "release:minor": "npm run build && npm version minor && npm publish && git push --follow-tags",

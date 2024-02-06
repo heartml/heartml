@@ -50,7 +50,7 @@ From a CDN:
 
 ```html
 <head>
-  <script src="https://cdn.jsdelivr.net/npm/heartml@0.14.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/heartml@0.15.0"></script>
 </head>
 ```
 
