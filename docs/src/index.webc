@@ -174,6 +174,14 @@ class MyComponent extends HeartElement {
 </playground-ide>
 <copy-button from="rename-callee"></copy-button>
 
+<template webc:type="11ty" 11ty:type="md">
+
+  ### Declarative Custom Elements (DCEs)
+
+  Heartml lets you define custom elements **declaratively** directly in your HTML using `heart-ml` tags. This is particularly useful for co-locating components with specific use cases right in the contexts where they'll be used.
+
+</template>
+
 <playground-ide id="phone-number-input">
   <script webc:keep type="sample/html" filename="index.html">
 
@@ -197,8 +205,7 @@ class MyComponent extends HeartElement {
     declarative-events='["input"]'
   >
     <script type="module">
-      const DeclarativeHeartElement = await customElements.whenDefined("heart-ml")
-      class NameChange extends DeclarativeHeartElement {
+      class NameChange extends (await customElements.whenDefined("heart-ml")) {
         start() {
           this.name = ""
         }
@@ -221,7 +228,7 @@ class MyComponent extends HeartElement {
 
 ### Heartml Module Files (SFCs)
 
-When you're ready to write a **Single-File Component** that's not purely JavaScript, here comes `.heartml`. You can import and bundle `.heartml` files via [esbuild](https://github.com/whitefusionhq/esbuild-plugin-html-modules), or simply use the `<heart-module>` custom element to load them up in any "buildless" environment.
+Moving a step up from DCEs, you can author `.heartml` files—a **Single-File Component** format which starts with pure HTML. You can import and bundle `.heartml` files via [esbuild](https://github.com/whitefusionhq/esbuild-plugin-html-modules) or alternatively use the `<heart-module>` custom element to load them up in any "buildless" environment.
 
 </template>
 
