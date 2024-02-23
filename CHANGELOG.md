@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.16.0] - 2024-02-22
+
+- Fix some funky mismatches between promises and promise callbacks
+
 ## [0.15.0] - 2024-02-05
 
 - Refactor declarative custom elements using Promises (breaking syntax change)

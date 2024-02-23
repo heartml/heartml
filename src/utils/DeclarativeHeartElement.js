@@ -2,6 +2,8 @@
 import Heartml, { HeartElement, css, html } from "../heartml.js"
 import { signal, computed, effect, batch, Signal } from "@preact/signals-core"
 
+// TODO: move some of the logic below into a plugin!
+
 class DeclarativeHeartElement extends HeartElement {
   static {
     Object.assign(this, {
@@ -18,6 +20,7 @@ class DeclarativeHeartElement extends HeartElement {
   }
 
   static modulePromises = {}
+  static promiseCallbacks = {}
 
   static async define(tagName = null) {
     if (!tagName) {
@@ -27,15 +30,19 @@ class DeclarativeHeartElement extends HeartElement {
       // that was supplied by the connectedCallback of the declarative instance.
       if (!DeclarativeHeartElement.modulePromises[this.name]) {
         let callback;
-        modulePromise = DeclarativeHeartElement.modulePromises[this.name] = new Promise((resolve, reject) => {
+        modulePromise = new Promise((resolve, reject) => {
           callback = resolve
         })
-        DeclarativeHeartElement.modulePromises[this.name] = callback
+        DeclarativeHeartElement.promiseCallbacks[this.name] = callback
       } else {
         modulePromise = DeclarativeHeartElement.modulePromises[this.name]
       }
 
       const el = await modulePromise
+
+      delete DeclarativeHeartElement.modulePromises[this.name]
+      delete DeclarativeHeartElement.promiseCallbacks[this.name]
+      if (customElements.get(el.getAttribute("tag-name"))) return;
 
       /** @type {HTMLTemplateElement} */
       const template = el.querySelector("template[data-html]")
@@ -68,6 +75,8 @@ class DeclarativeHeartElement extends HeartElement {
     if (this.localName === "heart-ml") {
       // Code path for declarative elements
       setTimeout(() => {
+        if (customElements.get(this.getAttribute("tag-name"))) return;
+
         // Find the class name within the module script
         const scriptTag = this.querySelector("script[type=module]")
         const globalName = scriptTag.textContent.match(/class\s+(\w+)\s+extends\s+/)?.[1]
@@ -82,9 +91,9 @@ class DeclarativeHeartElement extends HeartElement {
 
         // We either resolve a promise already created by the component's `complete` static
         // method, or save a promise to be resolved later:
-        if (DeclarativeHeartElement.modulePromises[globalName]) {
+        if (DeclarativeHeartElement.promiseCallbacks[globalName]) {
           // This is likely the route taken
-          DeclarativeHeartElement.modulePromises[globalName](this)
+          DeclarativeHeartElement.promiseCallbacks[globalName](this)
         } else {
           // This only happens if there's some delay within the module script
           DeclarativeHeartElement.modulePromises[globalName] = new Promise((resolve, reject) => {
