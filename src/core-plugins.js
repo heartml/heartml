@@ -47,10 +47,12 @@ export const declarativeEffects = {
     setTimeout(() => {
       if (element.constructor.declarativeEffects.shadow) {
         element.hostEffects.processShadowRoot("host-effect")
+        element.hostEffects.processShadowRoot("iso-effect")
       }
   
       if (element.constructor.declarativeEffects.light) {
         element.hostEffects.processElementChildren("host-effect")
+        element.hostEffects.processElementChildren("iso-effect")
       }
     })
   },

@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.17.0] - 2024-02-27
+
+- Process `iso-effect` in addition to `host-effect`
+
 ## [0.16.0] - 2024-02-22
 
 - Fix some funky mismatches between promises and promise callbacks
