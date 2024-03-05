@@ -23,7 +23,7 @@ Forget everything you know about web components…and _fall in love with them_ a
 
 ### Every Component Everywhere All at Once
 
-* **Server-agnostic**: emit SSR via Ruby today, JavaScript coming soon. Other renderers entirely possible.
+* **Server-agnostic**: emit SSR via <a href="/ruby">Ruby today</a>, JavaScript coming soon. Other renderers entirely possible.
 * Or you can integrate with existing **server component** formats such as [WebC](https://www.11ty.dev/docs/languages/webc/).
 * Use Heartml all by itself or **alongside other web components** built with vanilla JS, [Lit](https://lit.dev), [Stencil](https://stenciljs.com), etc.
 * **Run Heartml everywhere!** It works seamlessly in all kinds of stacks, from WordPress to Ruby on Rails to Eleventy.

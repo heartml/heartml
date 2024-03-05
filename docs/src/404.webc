@@ -1,0 +1,12 @@
+---
+layout: "default.webc"
+permalink: /404.html
+---
+
+<h1 style="text-align: center">
+  404 Not Found
+</h1>
+
+<p style="text-align: center; margin-block-end: var(--sl-spacing-4x-large)">But we found a really cute picture of <strong>Callee</strong> for you!</p>
+
+<p style="text-align: center"><img src="/images/Callee-grin.png" alt="Callee" style="width: 220.5px;" /></p>

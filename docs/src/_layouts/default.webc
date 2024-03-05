@@ -3,14 +3,20 @@
 	<head>
 		<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Heartml: Postmodern HTML</title>
+    <script webc:setup>
+      function fullTitle(title) {
+        const newTitle = title ? `${title} - ` : ""
+        return `${newTitle}Heartml: Postmodern HTML`;
+      }
+    </script>
+		<title @text="fullTitle(title)">Heartml: Postmodern HTML</title>
 
     <style webc:keep>
       @import url(https://fonts.bunny.net/css?family=red-hat-text:400,400i,700,700i);
     </style>
     <link webc:keep rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.8.0/cdn/themes/dark.css" />
     <script webc:keep type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.8.0/cdn/shoelace-autoloader.js"></script>
-    <link rel="stylesheet" href="../global.css" />
+    <link rel="stylesheet" href="../css/global.css" />
 
     <style @raw="getBundle('css')" webc:keep></style>
 		<script @raw="getBundle('js')" webc:keep></script>
@@ -35,11 +41,8 @@
     </script>
 	</head>
 	<body class="sl-theme-dark">
-    <header style="text-align:center">
-      <img src="/images/Callee.png" alt="Callee" style="width:209px" />
+    <site-header></site-header>
 
-      <p><strong>Callee</strong> is excited you’re going to build some components!</p>
-    </header>
     <main @raw="content"></main>
     
     <footer>

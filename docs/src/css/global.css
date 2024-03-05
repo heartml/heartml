@@ -14,6 +14,12 @@
   --font-family: "Red Hat Text", sans-serif;
 }
 
+@media (min-width: 768px) {
+  :root {
+    --desktop-grid: grid;
+  }
+}
+
 body {
   background: var(--color-midnight);
   font-family: var(--font-family);
@@ -48,6 +54,34 @@ strong {
   color: var(--color-cyan);
 }
 
+body > header {
+  margin-block-end: var(--sl-spacing-2x-large);
+  display: var(--desktop-grid, block);
+  grid-template-columns: 20% auto 20%;
+
+  & > nav {
+    width: fit-content;
+    margin-inline: auto;
+
+    & > ul {
+      margin-inline: var(--sl-spacing-medium) 0;
+      margin-block: var(--sl-spacing-4x-large) 0;
+      list-style-type: none;
+      padding: 0;
+      font-size: var(--sl-font-size-x-large);
+      font-weight: bold;
+
+      @media (max-width: 767px) {
+        margin-block-start: var(--sl-spacing-x-large);
+      }
+
+      & a {
+        text-decoration: none;
+      }
+    }
+  }
+}
+
 main {
   font-size: clamp(1.11rem, 2vw, 1.69rem);
   max-width: 75.5rem;
@@ -60,7 +94,7 @@ main {
 
 body > footer {
   text-align: center;
-  padding-block: 2rem;
+  padding-block: var(--sl-spacing-2x-large);
 }
 
 abbr {
@@ -82,8 +116,15 @@ code {
 pre {
   border: 1px solid var(--color-red-lighter);
   border-radius: 16px;
-  padding: 1rem;
+  margin-block: 2em;
+  padding: .85em;
   overflow: auto;
+}
+
+@media (min-width: 1150px) {
+  pre {
+    font-size: 85%;
+  }
 }
 
 playground-ide {
@@ -152,4 +193,92 @@ playground-ide::part(preview) {
   playground-ide::part(preview) {
     height: 240px;
   }
+}
+
+/* Prism Syntax Highlighting…loosely taken from Night Owl theme */
+.token.comment,
+.token.prolog,
+.token.cdata {
+	color: rgb(99, 119, 119);
+	font-style: italic;
+}
+
+.token.punctuation {
+	color: rgb(199, 146, 234);
+}
+
+.namespace {
+	color: rgb(178, 204, 214);
+}
+
+.token.deleted {
+	color: rgba(239, 83, 80, 0.56);
+	font-style: italic;
+}
+
+.token.symbol,
+.token.property {
+	color: rgb(128, 203, 196);
+}
+
+.token.tag,
+.token.operator,
+.token.keyword {
+	color: rgb(127, 219, 202);
+}
+
+.token.boolean {
+	color: rgb(255, 88, 116);
+}
+
+.token.number {
+	color: rgb(247, 140, 108);
+}
+
+.token.constant,
+.token.function,
+.token.builtin,
+.token.char {
+	color: rgb(130, 170, 255);
+}
+
+.token.selector,
+.token.doctype {
+	color: rgb(199, 146, 234);
+	font-style: italic;
+}
+
+.token.attr-name,
+.token.inserted {
+	color: rgb(173, 219, 103);
+	font-style: italic;
+}
+
+.token.string,
+.token.url,
+.token.entity,
+.language-css .token.string,
+.style .token.string {
+	color: rgb(173, 219, 103);
+}
+
+.token.class-name,
+.token.atrule,
+.token.attr-value {
+	color: rgb(255, 203, 139);
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+	color: rgb(214, 222, 235);
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+
+.token.italic {
+	font-style: italic;
 }

@@ -58,5 +58,11 @@ export const styleMap = (component, node, obj) => {
  * @param {string} value
  */
 export const attribute = (component, node, name, value) => {
-  node.setAttribute(name, value)
+  if (value == null) {
+    node.removeAttribute(name)
+  } else if (!name.startsWith("aria-") && !value) {
+    node.removeAttribute(name)
+  } else {
+    node.setAttribute(name, value)
+  }
 }
