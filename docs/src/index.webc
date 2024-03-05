@@ -42,7 +42,7 @@ Forget everything you know about web components…and _fall in love with them_ a
 * Package provides unbundled ESM, or install a pre-bundled/minified version right off a **CDN**.
 * All of Heartml fits in a **tiny** ~5KB compressed size—even including Signals. _Did we mention this thing is tiny?_ 😆
 
-<callee-callout>**Callee** has a few demos she'd like to show you!</callee-callout>
+<callee-callout>**Callee** has a few demos they'd like to show you!</callee-callout>
 
 ## How to Install
 
@@ -50,7 +50,7 @@ From a CDN:
 
 ```html
 <head>
-  <script src="https://cdn.jsdelivr.net/npm/heartml@0.15.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/heartml@0.17.0"></script>
 </head>
 ```
 
@@ -186,7 +186,7 @@ class MyComponent extends HeartElement {
   <script webc:keep type="sample/html" filename="index.html">
 
 <head>
-  <script src="https://cdn.jsdelivr.net/npm/heartml@0.15.0">&lt;/script>
+  <script src="https://cdn.jsdelivr.net/npm/heartml@0.17.0">&lt;/script>
   <link rel="stylesheet" href="defaults.css" />
 </head>
 <body>
@@ -236,7 +236,7 @@ Moving a step up from DCEs, you can author `.heartml` files—a **Single-File Co
   <script webc:keep type="sample/html" filename="index.html">
 
 <head>
-  <script src="https://cdn.jsdelivr.net/npm/heartml@0.15.0">&lt;/script>
+  <script src="https://cdn.jsdelivr.net/npm/heartml@0.17.0">&lt;/script>
   <link rel="stylesheet" href="defaults.css" />
 </head>
 <body>

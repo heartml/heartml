@@ -2,7 +2,7 @@
   <script webc:keep type="sample/importmap">
     {
       "imports": {
-        "heartml": "https://esm.sh/heartml@0.15.0"
+        "heartml": "https://esm.sh/heartml@0.17.0"
       }
     }
   </script>
