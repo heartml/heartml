@@ -64,7 +64,7 @@ body > header {
     margin-inline: auto;
 
     & > ul {
-      margin-inline: var(--sl-spacing-medium) 0;
+      margin-inline: var(--sl-spacing-medium);
       margin-block: var(--sl-spacing-4x-large) 0;
       list-style-type: none;
       padding: 0;
