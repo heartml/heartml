@@ -1,0 +1,82 @@
+<heart-ml
+  tag-name="todo-item"
+  properties='{
+    "itemid": {},
+    "completed": {}
+  }'
+  declarative-effects='{ "shadow": true }'
+  declarative-events='["change"]'
+  queries='{
+    "light": {
+      "itemLabel": "todo-item-label"
+    }
+  }'
+>
+  <template data-html>
+    <label>
+      <input type="checkbox" host-effect="@checked = .completed" host-event="change#check" />
+      <slot host-effect="$styleMap(.checkedStyles)"></slot>
+    </label>
+  </template>
+
+  <template data-css>
+    <style>
+      input {
+        margin-inline-end: 1rem;
+        vertical-align: .125rem;
+        scale: 2;
+        accent-color: #055699;
+      }
+      slot {
+        display: inline-block;
+      }
+    </style>
+  </template>
+
+  <script type="module">
+    class TodoItem extends (await customElements.whenDefined("heart-ml")) {
+      start() {
+        this.itemid = 0
+        /**
+         * Determines if the item has been completed.
+         * 
+         * @type {boolean}
+         */
+        this.completed = false
+      }
+
+      connectedCallback() {
+        this.lifecycle.mount(subscribe => {
+          subscribe("completed", () => {
+            this.closest("todo-list").updateTodos()
+          })
+        })
+      }
+
+      check(event) {
+        this.completed = event.target.checked
+      }
+
+      get checkedStyles() {
+        return {
+          fontWeight: this.completed ? "normal" : "bold",
+          textDecoration: this.completed ? "line-through" : "none"
+        }
+      }
+
+      get label() {
+        return this.itemLabel.textContent
+      }
+
+      set label(name) {
+        if (!this.itemLabel) {
+          this.append(createElement("todo-item-label"))
+        }
+
+        this.itemLabel.textContent = name
+      }
+
+      static { this.define() }
+    }
+  </script>
+</heart-ml>

@@ -1,0 +1,31 @@
+<heart-ml tag-name="dce-counter"
+  properties='{"count": {}}'
+  declarative-effects='{"shadow": true}'
+  declarative-events='["click"]'
+>
+  <template data-html>
+    <button host-event="click#decrement">Less -</button>
+    <strong host-effect="@textContent=.count" style="display: inline-block; width: 4rem">0</strong>
+    <button host-event="click#increment">+ More</button>
+  </template>
+
+  <template data-css>
+    <style>
+      :host { display: block; text-align: center; font-size: 200%; }
+      button { font-size: inherit; }
+    </style>
+  </template>
+
+  <script type="module">
+    class DCECounter extends (await customElements.whenDefined("heart-ml")) {
+      static { this.define(); console.log(import.meta.document.querySelector("#some-other-html").innerHTML); console.log(import.meta.url) }
+      start() { this.count = 0 }
+      increment(event) { this.count++ }
+      decrement(event) { this.count-- }
+    }
+  </script>
+</heart-ml>
+
+<template id="some-other-html">
+  <p>More HTML.</p>
+</template>

@@ -51,6 +51,7 @@
   <hr />
 
   <my-counter count="1"></my-counter>
+  <dce-counter count="10"></dce-counter>
 
   <hr />
 
@@ -108,23 +109,12 @@
   </script>
 
   <heart-module src="mods/counter.heartml"></heart-module>
+  <heart-module src="mods/dce-counter.heartml"></heart-module>
   <script>
     document.addEventListener("heartml:import", (e) => {
-      console.log("It has been imported!", e.target)
+      console.log("It has been imported!", e.target, e.detail)
     })
   </script>
 
-  <script>
-    // Declarative Shadow DOM (DSD) polyfill
-    ;(function attachShadowRoots(root) {
-      root.querySelectorAll("template[shadowrootmode]").forEach(template => {
-        const mode = template.getAttribute("shadowrootmode");
-        const shadowRoot = template.parentNode.attachShadow({ mode });
-        shadowRoot.appendChild(template.content);
-        template.remove();
-        attachShadowRoots(shadowRoot);
-      });
-    })(document);
-  </script>
 </body>
 </html>

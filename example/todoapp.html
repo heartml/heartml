@@ -194,101 +194,10 @@ logic.
   </script>
 </heart-ml>
 
-<heart-ml
-  tag-name="todo-item"
-  properties='{
-    "itemid": {},
-    "completed": {}
-  }'
-  declarative-effects='{ "light": true, "shadow": true }'
-  declarative-events='["change"]'
-  queries='{
-    "light": {
-      "itemLabel": "todo-item-label"
-    }
-  }'
->
-  <template data-html>
-    <label>
-      <input type="checkbox" host-effect="@checked = .completed" host-event="change#check" />
-      <slot host-effect="$styleMap(.checkedStyles)"></slot>
-    </label>
-  </template>
-  <template data-css>
-    <style>
-      input {
-        margin-inline-end: 1rem;
-        vertical-align: .125rem;
-        scale: 2;
-        accent-color: #055699;
-      }
-      slot {
-        display: inline-block;
-      }
-    </style>
-  </template>
-
-  <script type="module">
-    class TodoItem extends (await customElements.whenDefined("heart-ml")) {
-      start() {
-        this.itemid = 0
-        /**
-         * Determines if the item has been completed.
-         * 
-         * @type {boolean}
-         */
-        this.completed = false
-      }
-
-      connectedCallback() {
-        this.lifecycle.mount(subscribe => {
-          subscribe("completed", () => {
-            this.closest("todo-list").updateTodos()
-          })
-        })
-      }
-
-      check(event) {
-        this.completed = event.target.checked
-      }
-
-      get checkedStyles() {
-        return {
-          fontWeight: this.completed ? "normal" : "bold",
-          textDecoration: this.completed ? "line-through" : "none"
-        }
-      }
-
-      get label() {
-        return this.itemLabel.textContent
-      }
-
-      set label(name) {
-        if (!this.itemLabel) {
-          this.append(createElement("todo-item-label"))
-        }
-
-        this.itemLabel.textContent = name
-      }
-    }
-
-    TodoItem.define()
-  </script>
-</heart-ml>
+<!-- Load a definition from a module file -->
+<heart-module src="mods/todo-item.heartml"></heart-module>
 
 <script src="/js/cdn-style-app.js"></script>
 
-<script>
-  // Declarative Shadow DOM (DSD) polyfill
-  ;(function attachShadowRoots(root) {
-    root.querySelectorAll("template[shadowrootmode]").forEach(template => {
-      const mode = template.getAttribute("shadowrootmode");
-      const shadowRoot = template.parentNode.attachShadow({ mode });
-      shadowRoot.appendChild(template.content);
-      template.remove();
-      attachShadowRoots(shadowRoot);
-    });
-  })(document);
-</script>
 </body>
 </html>
