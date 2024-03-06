@@ -436,3 +436,35 @@ class MyComponent extends HeartElement {
 
 </playground-ide>
 <copy-button from="shoelace-example"></copy-button>
+
+<template webc:type="11ty" 11ty:type="md">
+
+----
+
+## Next Steps
+
+Peruse the [Documentation](/documentation) to learn more about the various features of the Heartml component format, including how to work with signals and effects, how to control hydration through "lazy" effects, how to handle events, how you can manage shared state across multiple components, and how to add shared component behaviors via plugins.
+
+For server-side rendering (SSR), read our [Ruby Components](/ruby) documentation. We hope to support more SSR languages in the future, such as JavaScript.
+
+## Where is Heartml Being Used?
+
+The largest production rollouts of Heartml to date are on the [Preset Galaxy](https://www.presetgalaxy.com) and [The Spicy Web](https://www.spicyweb.dev) websites. You can see Heartml in action on **Preset Galaxy** in the form of the audio player, comments section, and several other interactive elements across various features. On **The Spicy Web**, Heartml handles the account "drawer", paywall access to content, and some other aspects of the content experience.
+
+Now that Heartml is available to the public, we hope to see usage blossom in a variety of settings!
+
+## Who's Developing Heartml?
+
+Heartml is developed by Jared White, the creator of Bridgetown and a freelance web solutions architect with Whitefusion. It was conceived in fall of 2022, and released as a beta to the public in early 2024.
+
+### Competing Solutions
+
+While Heartml is an original solution, it gets its inspiration from a variety of sources. The idea of a single-file component with separate tags for the HTML template, CSS, and JavaScript was popularized by **Vue**, and [petite-vue](https://github.com/vuejs/petite-vue) was a particular point of inspiration. There are hints of features popularized by [Lit](https://lit.dev), a well-known web component library. The proposed **HTML Modules spec** and our subsequent [esbuild plugin](https://github.com/whitefusionhq/esbuild-plugin-html-modules) was also a launching pad for a library like Heartml.
+
+From an HTML-first perspective, other solutions you may have come across are [WebC](https://github.com/11ty/webc) and [Enhance](https://enhance.dev), which both offer ways to server-render web components and related HTML constructs. While Heartml was born independently and evolved in parallel to those projects, you'll notice some definite similiaries (as well as plenty of differences!). We believe "a rising tide floats all boats" and the more examples of using web component-esque solutions in various web frameworks there are around the industry—and especially in multiple server languages besides just JavaScript—the better!
+
+### Contributing to Heartml
+
+...
+
+</template>
