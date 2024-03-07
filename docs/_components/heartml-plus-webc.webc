@@ -1,0 +1,44 @@
+<p>Page title: <strong @text="title"></strong></p>
+<output @text="count" host-lazy-effect="@textContent = .count"></output>
+
+<style webc:scoped>
+  :host {
+    display: block;
+    background: #00000033;
+    border: 1px dashed var(--sl-color-gray-300);
+    padding: var(--sl-spacing-large);
+  }
+
+  p {
+    margin-block: 0 var(--sl-spacing-medium);
+  }
+</style>
+
+<script type="module">
+  import { HeartElement } from "https://esm.sh/heartml@0.17.0"
+
+  class HeartmlPlusWebC extends HeartElement {
+    static properties = {
+      count: {}
+    }
+    static declarativeEffects = { light: true }
+    static {
+      this.define("heartml-plus-webc")
+    }
+
+    start() {
+      this.count = 0
+      // `this.count` will be updated to 10 as soon as the `count` attribute is processed.
+      // But because of `host-lazy-effect`, the number won't be re-rendered until it later
+      // mutates via `setInterval`.
+    }
+
+    connectedCallback() {
+      super.connectedCallback()
+
+      setInterval(() => {
+        this.count++
+      }, 1000)
+    }
+  }
+</script>

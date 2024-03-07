@@ -3,7 +3,7 @@ title: Component SSR in Ruby
 layout: "default.webc"
 ---
 
-# {{ title }} {style="text-align: center"}
+# <template @text="title" webc:nokeep></template> {style="text-align: center"}
 
 You can use **Heartml** entirely client-side, but if you want to be able to render web components on the server, "expand" components, use Declarative Shadow DOM (DSD), and other HTML-first techniques, you need a server-side rendering solution (SSR).
 
@@ -28,6 +28,8 @@ end
 Then you can add component pairs in your `src/_components` folder: an `.rb` file for the Ruby component definition, and a `.heartml` file for the HTML, CSS, and JavaScript (optional).
 
 Here's an example component which lets you define figures including an image and a caption easily in Markdown or other HTML file formats:
+
+<code-example webc:raw>
 
 ```ruby
 # src/_components/image_figure.rb
@@ -88,9 +90,13 @@ end
 </style>
 ```
 
+</code-example>
+
 As you can see, the effects syntax on the server matches the syntax you'd use for client-side rendering. More on this below.
 
 Bridgetown will now automatically render this component any time you include the component tag in HTML via the Heartml Ruby renderer which hooks into Bridgetown via HTML Inspectors and Nokolexbor. For example:
+
+<code-example webc:raw>
 
 ```md
 # Some Markdown File.
@@ -100,7 +106,11 @@ Bridgetown will now automatically render this component any time you include the
 </image-figure>
 ```
 
+</code-example>
+
 Which renders out to:
+
+<code-example webc:raw>
 
 ```html
 <image-figure><template shadowrootmode="open"><figure>
@@ -112,6 +122,8 @@ Which renders out to:
   <img src="/images/some-image.jpg" alt="An Image">
 </image-figure>
 ```
+
+</code-example>
 
 ## Rails
 

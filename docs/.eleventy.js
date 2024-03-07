@@ -1,6 +1,7 @@
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const pluginWebc = require("@11ty/eleventy-plugin-webc");
 const markdownItAttrs = require("markdown-it-attrs");
+const markdownItNamedHeadings = require("markdown-it-named-headings")
 const { exec } = require("child_process");
 
 module.exports = function(eleventyConfig) {
@@ -9,6 +10,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.amendLibrary("md", mdLib => {
     mdLib.set({ typographer: true })
     mdLib.use(markdownItAttrs)
+    mdLib.use(markdownItNamedHeadings)
   });
 
   eleventyConfig.addPassthroughCopy("src/js")
@@ -27,6 +29,7 @@ module.exports = function(eleventyConfig) {
       input: "src",
       output: "output",
       layouts: "_layouts"
-    }
+    },
+    markdownTemplateEngine: "webc"
   }
 };

@@ -82,8 +82,10 @@ import { HeartElement } from "heartml"
 <body>
   <my-component count="10">
     <button host-event="click#decrement">Dec -</button>
+
     Counter:
     <span host-effect="@textContent = .count">0</span>
+
     <button host-event="click#increment">Inc +</button>
   </my-component>
 </body>

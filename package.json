@@ -41,6 +41,7 @@
     "@web/test-runner-playwright": "^0.10.1",
     "esbuild": "^0.18.17",
     "markdown-it-attrs": "^4.1.6",
+    "markdown-it-named-headings": "^1.1.0",
     "playground-elements": "^0.18.1"
   }
 }
