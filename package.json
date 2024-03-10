@@ -1,6 +1,6 @@
 {
   "name": "heartml",
-  "version": "0.17.0",
+  "version": "0.18.0",
   "description": "Postmodern HTML. Web components with the hots for declarative markup.",
   "private": false,
   "author": "Jared White",
