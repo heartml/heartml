@@ -56,7 +56,7 @@ And then in your component definition, you can use Heartml syntax in the HTML an
 &lt;/style>
 
 <script type="module">
-  import { HeartElement } from "https://esm.sh/heartml@0.17.0"
+  import { HeartElement } from "https://esm.sh/heartml@0.18.0"
 
   class HeartmlPlusWebC extends HeartElement {
     static properties = {
