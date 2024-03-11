@@ -67,7 +67,7 @@ export class HeartLifecycle {
 
 export class HeartElement extends HTMLElement {
   /**
-   * Set up a custom element to hook into the Heartml lifecycle and get registered
+   * Set up a custom element to hook into the Heartml lifecycle and get registered.
    * Static properties/methods will be treated as plugin configurations. However,
    * if it starts with `_` then it will be ignored.
    * 
