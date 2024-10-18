@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" :content="eleventy.generator">
     <script webc:setup>
       function fullTitle(title) {
         const newTitle = title ? `${title} - ` : ""
@@ -51,7 +52,7 @@
 
         [Heartml is open source](https://github.com/heartml/heartml), licensed MIT
 
-        “Callee” character created by Mikey <3
+        “Callee” character created by Mike <3
 
         Color scheme inspired by [Search Lights](https://github.com/finnjames/search-lights) by Finn James
       </template>

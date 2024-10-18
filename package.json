@@ -5,6 +5,7 @@
   "private": false,
   "author": "Jared White",
   "license": "MIT",
+  "type": "module",
   "main": "dist/heartml.cdn.js",
   "exports": {
     ".": "./dist/heartml.js",
@@ -23,7 +24,7 @@
     "release:patch": "npm run build && npm version patch && npm publish && git push --follow-tags",
     "release:minor": "npm run build && npm version minor && npm publish && git push --follow-tags",
     "release:major": "npm run build && npm version major && npm publish && git push --follow-tags",
-    "docs:dev": "npm run docs:frontend && cd docs && npx @11ty/eleventy --serve --port=4001",
+    "docs:dev": "npm run docs:frontend && cd docs && npx @11ty/eleventy --serve --port=4001 --config=eleventy.config.mjs",
     "docs:frontend": "cd docs && esbuild bundles/playground.js --bundle --minify --format=esm --outdir=src/js",
     "test": "web-test-runner --node-resolve",
     "test:dev": "npm run test -- --watch"
@@ -33,7 +34,7 @@
     "@preact/signals-core": "^1.4.0"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^2.0.1",
+    "@11ty/eleventy": "^3.0.0",
     "@11ty/eleventy-plugin-syntaxhighlight": "^5.0.0",
     "@11ty/eleventy-plugin-webc": "^0.11.1",
     "@open-wc/testing": "^3.2.0",
