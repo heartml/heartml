@@ -68,6 +68,11 @@ class HostEffects {
         const syntax = node.getAttribute(attr).replace(/\n/g, " ")
         const statements = syntax.split(";").map(item => item.trim())
         statements.forEach(statement => {
+          if (statement.startsWith(".")) {
+            // shortcut for text content
+            statement = `@textContent=${statement}`
+          }
+
           if (statement.startsWith("@")) {
             // property assignment
             const expression = statement.split("=").map(item => item.trim())

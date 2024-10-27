@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.19.0] - 2024-10-27
+
+- Add `.` effect shortcut for `@textContent = .`
+- docs: upgrade to Eleventy 3.0
+
+## [0.18.0] - 2024-03-10
+
+- Add support for the DCE syntax within modules loaded by heart-module
+
 ## [0.17.0] - 2024-02-27
 
 - Process `iso-effect` in addition to `host-effect`

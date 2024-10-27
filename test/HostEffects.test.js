@@ -11,7 +11,7 @@ class TestElement extends HTMLElement {
 
   static template = `
     <p host-effect="
-      @textContent = .count;
+      .count;
       $classMap(.paraClasses);
       $uniqId();
       styled ( 'color' , .textColor, )
