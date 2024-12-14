@@ -50,7 +50,7 @@ From a CDN:
 
 ```html
 <head>
-  <script src="https://cdn.jsdelivr.net/npm/heartml@0.18.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/heartml@latest"></script>
 </head>
 ```
 
@@ -84,7 +84,7 @@ import { HeartElement } from "heartml"
     <button host-event="click#decrement">Dec -</button>
 
     Counter:
-    <span host-effect="@textContent = .count">0</span>
+    <span host-effect=".count">0</span>
 
     <button host-event="click#increment">Inc +</button>
   </my-component>
@@ -135,7 +135,7 @@ class MyComponent extends HeartElement {
 </head>
 <body>
   <name-change name="Callee the Canine Coder">
-    <p host-effect="@textContent = .name">x</p>
+    <p host-effect=".name">x</p>
     
     <label>Rename:
     <input type="text" host-effect="@value = .name" host-event="input#changeName" style="width:15em" />
@@ -188,12 +188,12 @@ class MyComponent extends HeartElement {
   <script webc:keep type="sample/html" filename="index.html">
 
 <head>
-  <script src="https://cdn.jsdelivr.net/npm/heartml@0.18.0">&lt;/script>
+  <script src="https://cdn.jsdelivr.net/npm/heartml@latest">&lt;/script>
   <link rel="stylesheet" href="defaults.css" />
 </head>
 <body>
   <name-change>
-    <p host-effect="@textContent = .name">x</p>
+    <p host-effect=".name">x</p>
     
     <label>Phone number:
     <input type="text" host-effect="@value = .name" host-event="input#changeName" />
@@ -238,7 +238,7 @@ Moving a step up from DCEs, you can author `.heartml` files—a **Single-File Co
   <script webc:keep type="sample/html" filename="index.html">
 
 <head>
-  <script src="https://cdn.jsdelivr.net/npm/heartml@0.18.0">&lt;/script>
+  <script src="https://cdn.jsdelivr.net/npm/heartml@latest">&lt;/script>
   <link rel="stylesheet" href="defaults.css" />
 </head>
 <body>
@@ -266,7 +266,7 @@ Moving a step up from DCEs, you can author `.heartml` files—a **Single-File Co
 
 <template>
   <button host-event="click#decrement">-</button>
-  <strong host-effect="@textContent=.count" style="display: inline-block; width: 4rem">0</strong>
+  <strong host-effect=".count" style="display: inline-block; width: 4rem">0</strong>
   <button host-event="click#increment">+</button>
 </template>
 
@@ -392,7 +392,7 @@ If it's another custom element, **you're golden**. Mix 'n' match however you lik
 </head>
 <body class="sl-theme-dark">
   <name-change name="Callee the Component Critter">
-    <p host-effect="@textContent = .name">x</p>
+    <p host-effect=".name">x</p>
 
     <p><sl-input label="Rename:" host-effect="@value = .name" host-event="input#changeName"></sl-input></p>
 

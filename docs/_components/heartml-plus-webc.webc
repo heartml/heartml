@@ -1,5 +1,5 @@
 <p>Page title: <strong @text="title"></strong></p>
-<output @text="count" host-lazy-effect="@textContent = .count"></output>
+<output @text="count" host-lazy-effect=".count"></output>
 
 <style webc:scoped>
   :host {
@@ -15,7 +15,7 @@
 </style>
 
 <script type="module">
-  import { HeartElement } from "https://esm.sh/heartml@0.18.0"
+  import { HeartElement } from "https://esm.sh/heartml@latest"
 
   class HeartmlPlusWebC extends HeartElement {
     static properties = {

@@ -55,7 +55,7 @@ end
 
 <figure>
   <slot></slot>
-  <figcaption server-effect="$show(.show_caption); @textContent = .caption"></figcaption>
+  <figcaption server-effect="$show(.show_caption); .caption"></figcaption>
 </figure>
 
 <style>

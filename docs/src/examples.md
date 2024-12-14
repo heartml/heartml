@@ -40,7 +40,7 @@ And then in your component definition, you can use Heartml syntax in the HTML an
 ```html
 <!-- _components/heartml-plus-webc.webc -->
 <p>Page title: &lt;strong @text="title"></strong></p>
-&lt;output @text="count" host-lazy-effect="@textContent = .count">&lt;/output>
+&lt;output @text="count" host-lazy-effect=".count">&lt;/output>
 
 &lt;style webc:scoped>
   :host {
@@ -56,7 +56,7 @@ And then in your component definition, you can use Heartml syntax in the HTML an
 &lt;/style>
 
 <script type="module">
-  import { HeartElement } from "https://esm.sh/heartml@0.18.0"
+  import { HeartElement } from "https://esm.sh/heartml@latest"
 
   class HeartmlPlusWebC extends HeartElement {
     static properties = {
